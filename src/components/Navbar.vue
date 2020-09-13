@@ -27,9 +27,13 @@
                 </v-menu>
 
                 <v-btn text>
-                    <span>Sign Out</span>
+                    <span>Login/Register</span>
                     <v-icon right>exit_to_app</v-icon>
                 </v-btn>
+                <!--<v-btn text>
+        <span>Sign Out</span>
+        <v-icon right>exit_to_app</v-icon>
+    </v-btn>-->
             </v-toolbar>
 
             <v-navigation-drawer v-model="drawer" app class="primary">
