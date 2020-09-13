@@ -16,63 +16,49 @@
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Profile</div>
-                        </template>
+                        <profile-details></profile-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Spouse</div>
-                        </template>
+                        <spouse-details></spouse-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Child</div>
-                        </template>
+                        <child-details></child-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Business</div>
-                        </template>
+                        <business-details></business-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Committee</div>
-                        </template>
+                        <committee-details></committee-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Financial</div>
-                        </template>
+                        <financial-details></financial-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <template>
-                            <div>Directory</div>
-                        </template>
+                        <directory-details></directory-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -81,22 +67,28 @@
 </template>
 
 <script>
+    import ProfileDetails from "@/components/ProfileDetails";
+    import SpouseDetails from "@/components/SpouseDetails";
+    import ChildDetails from "@/components/ChildDetails";
+    import BusinessDetails from "@/components/BusinessDetails";
+    import CommitteeDetails from "@/components/CommitteeDetails";
+    import FinancialDetails from "@/components/FinancialDetails";
+    import DirectoryDetails from "@/components/DirectoryDetails";
+
     export default {
+        components: {
+            ProfileDetails,
+            SpouseDetails,
+            ChildDetails,
+            BusinessDetails,
+            CommitteeDetails,
+            FinancialDetails,
+            DirectoryDetails
+        },
         data() {
             return {
-                tab: null,
-                items: [
-                    { tab: 'One', content: 'Tab 1 Content' },
-                    { tab: 'Two', content: 'Tab 2 Content' },
-                    { tab: 'Three', content: 'Tab 3 Content' },
-                    { tab: 'Four', content: 'Tab 4 Content' },
-                    { tab: 'Five', content: 'Tab 5 Content' },
-                    { tab: 'Six', content: 'Tab 6 Content' },
-                    { tab: 'Seven', content: 'Tab 7 Content' },
-                    { tab: 'Eight', content: 'Tab 8 Content' },
-                    { tab: 'Nine', content: 'Tab 9 Content' },
-                    { tab: 'Ten', content: 'Tab 10 Content' },
-                ],
+                tab: null
+
             }
         },
     }
