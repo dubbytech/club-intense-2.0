@@ -46,27 +46,33 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item >
                     <v-list-item-action>
                         <v-icon class="white--text">contacts</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title class="white--text">
-                            <v-dialog v-model="dialog" persistent max-width="290">
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-btn class="white--text" text v-bind="attrs" v-on="on">Login/Register</v-btn>
-                                </template>
-                                <v-card>
-                                    <v-card-title class="headline">Use Google's location service?</v-card-title>
-                                    <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="green darken-1" text @click="login">Login</v-btn>
-                                        <v-btn color="green darken-1" text @click="register">Register</v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                        </v-list-item-title>
+                        <v-row justify="center">
+                            <template>
+                                <v-list-item-title class="white--text">
+                                    <v-dialog v-model="dialog" persistent max-width="290">
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <v-btn class="white--text" text v-bind="attrs" v-on="on">Login/Register</v-btn>
+                                        </template>
+                                        <v-card>
+                                            <v-card-title class="headline">Use Google's location service?</v-card-title>
+                                            <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn color="green darken-1" text @click="login">Login</v-btn>
+                                                <v-btn color="green darken-1" text @click="register">Register</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-dialog>
+                                </v-list-item-title>
+
+                            </template>
+                        </v-row>
+
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
