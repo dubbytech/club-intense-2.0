@@ -8,13 +8,18 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-toolbar-title>
-                <v-btn text class="hidden-sm-and-down" v-for="link in links" :key="link.text" router :to="link.route">
+            <v-toolbar-title v-if="!authenticated">
+                <v-btn text class="hidden-sm-and-down" v-for="link in generalLinks" :key="link.text" router :to="link.route">
+                    <span>{{ link.text }}</span>
+                </v-btn>
+            </v-toolbar-title>
+            <v-toolbar-title v-if="authenticated">
+                <v-btn text class="hidden-sm-and-down" v-for="link in authenticatedlinks" :key="link.text" router :to="link.route">
                     <span>{{ link.text }}</span>
                 </v-btn>
             </v-toolbar-title>
         </v-toolbar>
-       
+
         <v-navigation-drawer v-model="drawer" absolute temporary app class="primary">
             <v-list>
                 <!-- v-list-tile is changed to v-list-item -->
@@ -37,12 +42,20 @@
             drawer: false,
             siteTitle: "Idemili United",
             src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
-            links: [
+            authenticated: true,
+            authenticatedlinks: [
                 { icon: 'home', text: 'Home', route: '/' },
                 { icon: 'contacts', text: 'About', route: '/about' },
                 { icon: 'contacts', text: 'Gallery', route: '/gallery' },
                 { icon: 'contacts', text: 'Member Only', route: '/member' },
                 { icon: 'contacts', text: 'Admin', route: '/admin' },
+                { icon: 'contacts', text: 'Contact', route: '/contact' },
+                { icon: 'contacts', text: 'Login/Register', route: '/loginRegister' }
+            ],
+            generalLinks: [
+                { icon: 'home', text: 'Home', route: '/' },
+                { icon: 'contacts', text: 'About', route: '/about' },
+                { icon: 'contacts', text: 'Gallery', route: '/gallery' },
                 { icon: 'contacts', text: 'Contact', route: '/contact' },
                 { icon: 'contacts', text: 'Login/Register', route: '/loginRegister' }
             ]
