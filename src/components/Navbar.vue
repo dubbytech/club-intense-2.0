@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav>
-            <v-toolbar dark prominent src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
+            <v-toolbar dark prominent :src="src">
                 <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
                 <v-toolbar-title class="grey--text">
                     <!--<span class="font-weight-light">Site</span>-->
@@ -58,6 +58,7 @@
         data: () => ({
             drawer: false,
             siteTitle: "Idemili United",
+            src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
             links: [
                 { icon: 'home', text: 'Home', route: '/' },
                 { icon: 'contacts', text: 'About', route: '/about' },
