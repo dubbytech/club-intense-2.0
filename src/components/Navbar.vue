@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav>
-            <v-toolbar>
+            <v-toolbar dark prominent src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg">
                 <v-app-bar-nav-icon class="grey--text" @click="drawer = !drawer"></v-app-bar-nav-icon>
                 <v-toolbar-title class="grey--text">
                     <!--<span class="font-weight-light">Site</span>-->
@@ -28,15 +28,15 @@
 
                 <v-btn text>
                     <span>Login/Register</span>
-                    <v-icon right>exit_to_app</v-icon>
+                    <!--<v-icon right>exit_to_app</v-icon>-->
                 </v-btn>
                 <!--<v-btn text>
-        <span>Sign Out</span>
-        <v-icon right>exit_to_app</v-icon>
-    </v-btn>-->
+                    <span>Sign Out</span>
+                    <v-icon right>exit_to_app</v-icon>
+                </v-btn>-->
             </v-toolbar>
 
-            <v-navigation-drawer v-model="drawer" app class="primary">
+            <v-navigation-drawer v-model="drawer" absolute temporary app class="primary">
                 <v-list>
                     <!-- v-list-tile is changed to v-list-item -->
                     <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
@@ -50,7 +50,6 @@
                 </v-list>
             </v-navigation-drawer>
         </nav>
-        
     </div>
 </template>
 
