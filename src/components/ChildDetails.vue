@@ -15,6 +15,23 @@
                     </v-alert>
                 </v-col>
             </v-row>
+        </v-container>
+        <v-container class="grey lighten-5">
+            <v-row v-for="child in children" :key="child.id">
+                <v-col cols="12" md="8">
+                    <v-card class="pa-2" outlined tile>{{child.titleDegree}} {{child.firstName}} {{child.mi}} {{child.lastName}} | {{child.dob}} | {{child.gender}}</v-card>
+                </v-col>
+                <v-col cols="6" md="4">
+                    <v-btn class="ma-2" tile outlined color="success" @click="editChild"><v-icon left>mdi-pencil</v-icon> Edit </v-btn>
+                    <v-btn class="ma-2" tile outlined color="error" @click="deleteChild"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container>
+            <v-row>
+                <v-btn class="ma-2" tile outlined color="success" @click="addChild"><v-icon left>mdi-pencil</v-icon> Add child </v-btn>
+            </v-row>
+
             <v-row>
                 <v-col cols="12" md="6">
                     <v-text-field v-model="titleDegree" :rules="titleRules" label="Title" required></v-text-field>
@@ -52,8 +69,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="4">
-                    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitProfile">Submit</v-btn>
-                    <v-btn color="error" class="mr-4" @click="deleteProfile">Delete</v-btn>
+                    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitChild">Submit</v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -73,6 +89,10 @@
             dob: vm.formatDate(new Date().toISOString().substr(0, 10)),
             gender: "",
             genderItems: ["Male", "Female"],
+            children: [
+                { id: 1, gender: "Female", titleDegree: "Ms.", firstName: "Chukwudumebi", mi: "s", lastName: "Ejikeme", dob: "01/08/2002" },
+                { id: 2, gender: "Female", titleDegree: "Ms.", firstName: "Chikosolu", mi: "s", lastName: "Ejikeme", dob: "10/03/2003" }
+            ],
             imageId: "",
             createdBy: 0,
             createdTs: null,
@@ -110,14 +130,19 @@
             resetValidation() {
                 this.$refs.form.resetValidation()
             },
-            submitProfile() {
+            submitChild() {
                 alert("submit");
                 this.success = true;
                 this.error = false;
             },
-            deleteProfile() {
+            deleteChild() {
                 alert("delete");
                 this.error = true;
+                this.success = false;
+            },
+            addChild() {
+                this.reset();
+                this.error = false;
                 this.success = false;
             },
             formatDate(date) {

@@ -1,9 +1,6 @@
 <template>
     <v-form ref="form" v-model="valid" lazy-validation>
         <v-container>
-            <!--<v-row>
-                <v-btn class="ma-2" tile outlined color="success"><v-icon left>mdi-pencil</v-icon> Edit </v-btn>
-            </v-row>-->
             <v-row v-if="success">
                 <v-col cols="12">
                     <v-alert dense type="success">
