@@ -91,7 +91,9 @@
             genderItems: ["Male", "Female"],
             children: [
                 { id: 1, gender: "Female", titleDegree: "Ms.", firstName: "Chukwudumebi", mi: "s", lastName: "Ejikeme", dob: "01/08/2002" },
-                { id: 2, gender: "Female", titleDegree: "Ms.", firstName: "Chikosolu", mi: "s", lastName: "Ejikeme", dob: "10/03/2003" }
+                { id: 2, gender: "Female", titleDegree: "Ms.", firstName: "Chikosolu", mi: "s", lastName: "Ejikeme", dob: "10/03/2003" },
+                { id: 3, gender: "Female", titleDegree: "Ms.", firstName: "Ifenlota", mi: "s", lastName: "Ejikeme", dob: "10/21/2005" },
+                { id: 4, gender: "Male", titleDegree: "Mr.", firstName: "Dilichukwu", mi: "s", lastName: "Ejikeme", dob: "05/07/2010" }
             ],
             imageId: "",
             createdBy: 0,

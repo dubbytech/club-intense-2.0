@@ -61,7 +61,7 @@
             <v-row>
                 <v-col cols="12" md="4">
                     <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitProfile">Submit</v-btn>
-                    <v-btn color="error" class="mr-4" @click="deleteProfile">Delete</v-btn>
+                    <v-btn color="error" class="mr-4" @click="deleteProfile"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
             </v-row>
         </v-container>
