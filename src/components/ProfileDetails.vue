@@ -1,6 +1,9 @@
 <template>
     <v-form ref="form" v-model="valid" lazy-validation>
         <v-container>
+            <!--<v-row>
+                <v-btn class="ma-2" tile outlined color="success"><v-icon left>mdi-pencil</v-icon> Edit </v-btn>
+            </v-row>-->
             <v-row v-if="success">
                 <v-col cols="12">
                     <v-alert dense type="success">
@@ -94,7 +97,7 @@
     export default {
         data: vm => ({
             valid: false,
-            id: 0,
+            memberId: 0,
             titleDegree: "",
             firstName: "",
             lastName: "",
@@ -136,7 +139,6 @@
                 return this.formatDate(this.date)
             },
         },
-
         watch: {
             date() {
                 this.dob = this.formatDate(this.date)
@@ -157,7 +159,6 @@
                 alert("submit");
                 this.success = true;
                 this.error = false;
-                this.reset();
             },
             deleteProfile() {
                 alert("delete");
