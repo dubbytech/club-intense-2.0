@@ -17,13 +17,13 @@
             </v-row>
         </v-container>
         <v-container class="grey lighten-5">
-            <v-row v-for="child in children" :key="child.id">
+            <v-row dense v-for="child in children" :key="child.id">
                 <v-col cols="12" md="8">
                     <v-card class="pa-2" outlined tile>{{child.titleDegree}} {{child.firstName}} {{child.mi}} {{child.lastName}} | {{child.dob}} | {{child.gender}}</v-card>
                 </v-col>
                 <v-col cols="6" md="4">
-                    <v-btn class="ma-2" tile outlined color="success" @click="editChild"><v-icon left>mdi-pencil</v-icon> Edit </v-btn>
-                    <v-btn class="ma-2" tile outlined color="error" @click="deleteChild"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                    <v-btn class="ma-2" tile outlined color="success" @click="editChild(child.id)"><v-icon left>mdi-pencil</v-icon> Edit </v-btn>
+                    <v-btn class="ma-2" tile outlined color="error" @click="deleteChild(child.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -31,7 +31,6 @@
             <v-row>
                 <v-btn class="ma-2" tile outlined color="success" @click="addChild"><v-icon left>mdi-pencil</v-icon> Add child </v-btn>
             </v-row>
-
             <v-row>
                 <v-col cols="12" md="6">
                     <v-text-field v-model="titleDegree" :rules="titleRules" label="Title" required></v-text-field>
@@ -137,8 +136,8 @@
                 this.success = true;
                 this.error = false;
             },
-            deleteChild() {
-                alert("delete");
+            deleteChild(id) {
+                alert("delete: " + id);
                 this.error = true;
                 this.success = false;
             },
@@ -146,6 +145,9 @@
                 this.reset();
                 this.error = false;
                 this.success = false;
+            },
+            editChild(id) {
+                alert("edit: " + id);
             },
             formatDate(date) {
                 if (!date) return null
