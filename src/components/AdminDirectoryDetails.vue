@@ -45,7 +45,7 @@
     export default {
         data: () => ({
             valid: false,
-            showDelete:false,
+            showDelete:true,
             members: [
                 { id: 1, firstName: "Stanley", mi: "S", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801" },
                 { id: 2, firstName: "Chinwe", mi: "S", lastName: "Ejikeme", titleDegree: "Mrs.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322" }
