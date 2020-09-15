@@ -67,13 +67,13 @@
 </template>
 
 <script>
-    import ProfileDetails from "@/components/ProfileDetails";
-    import SpouseDetails from "@/components/SpouseDetails";
-    import ChildDetails from "@/components/ChildDetails";
-    import BusinessDetails from "@/components/BusinessDetails";
-    import CommitteeDetails from "@/components/CommitteeDetails";
-    import FinancialDetails from "@/components/FinancialDetails";
-    import DirectoryDetails from "@/components/DirectoryDetails";
+    import ProfileDetails from "@/components/MemberProfileDetails";
+    import SpouseDetails from "@/components/MemberSpouseDetails";
+    import ChildDetails from "@/components/MemberChildDetails";
+    import BusinessDetails from "@/components/MemberBusinessDetails";
+    import CommitteeDetails from "@/components/MemberCommitteeDetails";
+    import FinancialDetails from "@/components/MemberFinancialDetails";
+    import DirectoryDetails from "@/components/MemberDirectoryDetails";
 
     export default {
         components: {
