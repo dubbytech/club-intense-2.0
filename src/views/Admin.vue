@@ -34,7 +34,7 @@
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <admin-directory-details></admin-directory-details>
+                        <directory-details v-bind:isAdmin="true"></directory-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -46,14 +46,14 @@
     import AdminRegisterDetails from "@/components/AdminRegisterDetails";
     import AdminRoleDetails from "@/components/AdminRoleDetails";
     import AdminPaymentDetails from "@/components/AdminPaymentDetails";
-    import AdminDirectoryDetails from "@/components/AdminDirectoryDetails";
+    import DirectoryDetails from "@/components/DirectoryDetails";
 
     export default {
         components: {
             AdminRegisterDetails,
             AdminRoleDetails,
             AdminPaymentDetails,
-            AdminDirectoryDetails
+            DirectoryDetails
         },
         data() {
             return {

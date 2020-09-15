@@ -58,7 +58,7 @@
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <directory-details></directory-details>
+                        <directory-details v-bind:isAdmin="false"></directory-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -73,7 +73,7 @@
     import BusinessDetails from "@/components/MemberBusinessDetails";
     import CommitteeDetails from "@/components/MemberCommitteeDetails";
     import FinancialDetails from "@/components/MemberFinancialDetails";
-    import DirectoryDetails from "@/components/MemberDirectoryDetails";
+    import DirectoryDetails from "@/components/DirectoryDetails";
 
     export default {
         components: {

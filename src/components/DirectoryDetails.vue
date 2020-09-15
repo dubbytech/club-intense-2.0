@@ -30,11 +30,11 @@
                     Cell phone:
                     <v-card class="pa-2" outlined tile>{{member.cellPhone}}</v-card>
                 </v-col>
-                <v-col v-if="showDelete" cols="12" md="2">
-                    <v-btn class="ma-2" tile outlined color="error" @click="deleteMember(member.id)" text small><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                <v-col v-if="isAdmin" cols="12" md="2">
+                    <v-btn class="ma-2" tile outlined color="error" @click="deleteMember(member.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
                 <v-col v-else cols="12" md="2">
-                    <v-btn class="ma-2" tile outlined color="error" @click="deleteMember(member.id)" text small disabled><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                    <v-btn class="ma-2" tile outlined color="error" @click="deleteMember(member.id)" disabled><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -43,9 +43,12 @@
 
 <script>
     export default {
+        props: {
+            isAdmin: Boolean
+        },
         data: () => ({
             valid: false,
-            showDelete:true,
+            //showDelete: this.isAdmin,
             members: [
                 { id: 1, firstName: "Stanley", mi: "S", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801" },
                 { id: 2, firstName: "Chinwe", mi: "S", lastName: "Ejikeme", titleDegree: "Mrs.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322" }
