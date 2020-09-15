@@ -32,7 +32,7 @@
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="committees" label="Committee" required></v-select>
+                    <v-select v-model="selected" :items="committees" label="Committee" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -56,6 +56,7 @@
                 { id: 1, memberId: 7493, committee: "Hospitality" },
                 { id: 2, memberId: 7493, committee: "Operation" },
             ],
+            selected: "",
             createdBy: 0,
             createdTs: null,
             changedBy: 0,
@@ -83,8 +84,8 @@
             resetValidation() {
                 this.$refs.form.resetValidation()
             },
-            asignCommittee(id) {
-                alert("asign: " + id);
+            asignCommittee() {
+                alert("asign: " + this.selected);
                 this.success = true;
                 this.error = false;
                 this.valid = false;
