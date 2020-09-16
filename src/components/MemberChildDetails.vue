@@ -18,10 +18,16 @@
         </v-container>
         <v-container class="grey lighten-5">
             <v-row dense v-for="child in children" :key="child.id">
-                <v-col cols="12" md="8">
-                    <v-card class="pa-2" outlined tile>{{child.titleDegree}} {{child.firstName}} {{child.mi}} {{child.lastName}} | {{child.dob}} | {{child.gender}}</v-card>
+                <v-col cols="12" md="4">Name:
+                    <v-card class="pa-2" outlined tile>{{child.titleDegree}} {{child.firstName}} {{child.mi}} {{child.lastName}}</v-card>
                 </v-col>
-                <v-col cols="6" md="4">
+                <v-col cols="12" md="2">Date of birth
+                    <v-card class="pa-2" outlined tile>{{child.dob}}</v-card>
+                </v-col>
+                <v-col cols="12" md="2">Gender
+                    <v-card class="pa-2" outlined tile>{{child.gender}}</v-card>
+                </v-col>
+                <v-col cols="12" md="4">
                     <v-btn class="ma-2" tile outlined color="success" @click="editChild(child.id)"><v-icon left>mdi-pencil</v-icon> Edit </v-btn>
                     <v-btn class="ma-2" tile outlined color="error" @click="deleteChild(child.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>

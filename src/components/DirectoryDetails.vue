@@ -50,8 +50,8 @@
             valid: false,
             //showDelete: this.isAdmin,
             members: [
-                { id: 1, firstName: "Stanley", mi: "S", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801" },
-                { id: 2, firstName: "Chinwe", mi: "S", lastName: "Ejikeme", titleDegree: "Mrs.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322" }
+                { id: 1, firstName: "Stanley", mi: "U", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801", fullName: "Mr. Stanley U. Ejikeme" },
+                { id: 2, firstName: "Chinwe", mi: "A", lastName: "Ejikeme", titleDegree: "Dr.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322", fullName: "Dr. Chinwe A. Ejikeme" }
             ],
             message: "",
         }),
