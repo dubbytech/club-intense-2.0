@@ -71,7 +71,9 @@
             subject: "",
             subjectRules: [
                 v => !!v || 'subject is required'
-            ]
+            ],
+            success: false,
+            error: false
         }),
 
         methods: {
@@ -79,10 +81,13 @@
                 alert("send email ");
                 this.success = true;
                 this.error = false;
+                this.valid = false;
             },
             reset() {
                 this.$refs.form.reset();
                 this.valid = false;
+                this.success = false;
+                this.error = false;
             },
             resetValidation() {
                 this.$refs.form.resetValidation()
