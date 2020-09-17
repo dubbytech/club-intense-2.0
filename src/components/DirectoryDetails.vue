@@ -34,7 +34,7 @@
                     <v-btn class="ma-2" tile outlined color="error" @click="deleteMember(member.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
                 <v-col v-else cols="12" md="2">
-                    <v-btn class="ma-2" tile outlined color="error" @click="deleteMember(member.id)" disabled><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                    <v-btn class="ma-2" tile outlined color="error" disabled><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -56,7 +56,11 @@
             message: "",
         }),
         methods: {
-
+            deleteMember(id) {
+                alert("deleted: " + id);
+                this.error = true;
+                this.success = false;
+            },
         },
     }
 </script>
