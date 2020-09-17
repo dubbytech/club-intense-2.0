@@ -114,7 +114,8 @@
                 { icon: 'contacts', text: 'Gallery', route: '/gallery' },
                 { icon: 'contacts', text: 'Member Only', route: '/member' },
                 { icon: 'contacts', text: 'Admin', route: '/admin' },
-                { icon: 'contacts', text: 'Contact', route: '/contact' }
+                { icon: 'contacts', text: 'Contact', route: '/contact' },
+                { icon: 'contacts', text: 'Site Setup', route: '/setup' }
             ],
             generalLinks: [
                 { icon: 'home', text: 'Home', route: '/' },
