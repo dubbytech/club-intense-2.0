@@ -1,6 +1,20 @@
 <template>
     <v-form ref="form" v-model="valid" lazy-validation>
         <v-container class="grey lighten-5">
+            <v-row v-if="success">
+                <v-col cols="12">
+                    <v-alert dense type="success">
+                        Successfully updated.
+                    </v-alert>
+                </v-col>
+            </v-row>
+            <v-row v-if="error">
+                <v-col cols="12">
+                    <v-alert dense type="error">
+                        Error updating record.
+                    </v-alert>
+                </v-col>
+            </v-row>
             <v-row dense v-for="member in members" :key="member.id">
                 <v-col cols="12" md="1">
                     Title/Degree:
@@ -54,6 +68,8 @@
                 { id: 2, firstName: "Chinwe", mi: "A", lastName: "Ejikeme", titleDegree: "Dr.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322", fullName: "Dr. Chinwe A. Ejikeme" }
             ],
             message: "",
+            success: false,
+            error: false,
         }),
         methods: {
             deleteMember(id) {

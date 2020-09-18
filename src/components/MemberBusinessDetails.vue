@@ -66,7 +66,7 @@
                     <v-text-field v-model="companyFax" :rules="companyFaxRules" :counter="10" label="Business fax"></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="businessTypes" label="Business Type" required></v-select>
+                    <v-select :items="businessTypes" label="Business Type" item-text="Category" item-value="id" required></v-select>
                 </v-col>
             </v-row>
             <v-row>

@@ -19,7 +19,7 @@
         <v-container class="grey lighten-5">
             <v-row dense v-for="committee in memberCommittees" :key="committee.id">
                 <v-col cols="12" md="8">
-                    <v-card class="pa-2" outlined tile>{{committee.CommitteeName}}</v-card>
+                    <v-card class="pa-2" outlined tile>{{committee.committee}}</v-card>
                 </v-col>
                 <v-col cols="6" md="4">
                     <v-btn class="ma-2" tile outlined color="error" @click="deleteCommittee(committee.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
@@ -28,11 +28,11 @@
         </v-container>
         <v-container>
             <v-row>
-                <v-btn class="ma-2" tile outlined color="success" @click="addCommittee"><v-icon left>mdi-pencil</v-icon> Add Committee </v-btn>
+                <v-btn class="ma-2" tile outlined color="success" @click="addCommittee"><v-icon left>mdi-pencil</v-icon> Add New Committee </v-btn>
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select v-model="selected" :items="committees" label="Committee" required></v-select>
+                    <v-select v-model="selected" :items="committees" item-text="CommitteeName" item-value="id" label="Committee" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -51,7 +51,7 @@
             memberId: 0,
             id: 0,
             committee: "",
-            commiittees: [
+            committees: [
                 { id: 1, CommitteeName: "Hospitality" },
                 { id: 2, CommitteeName: "Membership" },
                 { id: 3, CommitteeName: "Operation" },

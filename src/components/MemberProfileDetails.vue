@@ -77,7 +77,7 @@
                     <v-text-field v-model="cellPhone" :rules="cellPhoneRules" :counter="10" label="Cell phone" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="homeTowns" label="Home town" required></v-select>
+                    <v-select :items="hometowns" label="Home town" item-text="Name" item-value="id" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
