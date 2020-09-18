@@ -121,11 +121,15 @@
             error: false,
             nameRules: [
                 v => !!v || 'Name is required',
-                v => v.length <= 10 || 'Name must be less than 10 characters',
+                v => v.length <= 10 || 'Name must not be greater than 10 characters',
             ],
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
+            ],
+            zipCodeRules: [
+                v => !!v || 'Zip code is required',
+                v => v.length <= 5 || 'Zip code must not be greater than 10 characters',
             ],
             date: new Date().toISOString().substr(0, 10),
             menu1: false,
