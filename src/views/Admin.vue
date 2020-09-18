@@ -37,14 +37,14 @@
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        manage committees
+                        <admin-committee-details></admin-committee-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        manage hometowns
+                        <admin-hometown-details></admin-hometown-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -70,13 +70,18 @@
     import AdminRegisterDetails from "@/components/AdminRegisterDetails";
     import AdminRoleDetails from "@/components/AdminRoleDetails";
     import AdminPaymentDetails from "@/components/AdminPaymentDetails";
+    import AdminCommitteeDetails from "@/components/AdminCommitteeDetails";
+    import AdminHometownDetails from "@/components/AdminHometownDetails";
     import DirectoryDetails from "@/components/DirectoryDetails";
+
 
     export default {
         components: {
             AdminRegisterDetails,
             AdminRoleDetails,
             AdminPaymentDetails,
+            AdminCommitteeDetails,
+            AdminHometownDetails,
             DirectoryDetails
         },
         data() {

@@ -108,7 +108,11 @@
             dob: vm.formatDate(new Date().toISOString().substr(0, 10)),
             gender: "",
             genderItems: ["Male", "Female"],
-            homeTowns: ["Abatete", "Nkpor", "Umuoji"],
+            hometowns: [
+                { id: 1, Name: "Abatete" },
+                { id: 2, Name: "Nkpor" },
+                { id: 3, Name: "Umuoji" }
+            ],
             homeTownId: 0,
             cellPhone: "",
             imageId: "",

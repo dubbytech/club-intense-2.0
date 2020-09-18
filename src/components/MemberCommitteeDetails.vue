@@ -19,7 +19,7 @@
         <v-container class="grey lighten-5">
             <v-row dense v-for="committee in memberCommittees" :key="committee.id">
                 <v-col cols="12" md="8">
-                    <v-card class="pa-2" outlined tile>{{committee.committee}}</v-card>
+                    <v-card class="pa-2" outlined tile>{{committee.CommitteeName}}</v-card>
                 </v-col>
                 <v-col cols="6" md="4">
                     <v-btn class="ma-2" tile outlined color="error" @click="deleteCommittee(committee.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
@@ -51,7 +51,14 @@
             memberId: 0,
             id: 0,
             committee: "",
-            committees: ["Hospitality", "Membership", "Operation", "Publicity", "Welfare", "Youth Program"],
+            commiittees: [
+                { id: 1, CommitteeName: "Hospitality" },
+                { id: 2, CommitteeName: "Membership" },
+                { id: 3, CommitteeName: "Operation" },
+                { id: 4, CommitteeName: "Publicity" },
+                { id: 5, CommitteeName: "Welfarey" },
+                { id: 6, CommitteeName: "Youth Program" }
+            ],
             memberCommittees: [
                 { id: 1, memberId: 7493, committee: "Hospitality" },
                 { id: 2, memberId: 7493, committee: "Operation" },
