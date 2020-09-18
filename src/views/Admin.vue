@@ -51,7 +51,7 @@
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        manage business types
+                        <admin-business-type-details></admin-business-type-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -72,6 +72,7 @@
     import AdminPaymentDetails from "@/components/AdminPaymentDetails";
     import AdminCommitteeDetails from "@/components/AdminCommitteeDetails";
     import AdminHometownDetails from "@/components/AdminHometownDetails";
+    import AdminBusinessTypeDetails from "@/components/AdminBusinessTypeDetails";
     import DirectoryDetails from "@/components/DirectoryDetails";
 
 
@@ -82,6 +83,7 @@
             AdminPaymentDetails,
             AdminCommitteeDetails,
             AdminHometownDetails,
+            AdminBusinessTypeDetails,
             DirectoryDetails
         },
         data() {

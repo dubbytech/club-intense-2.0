@@ -91,7 +91,11 @@
             city: "",
             state: "",
             postalCode: "",
-            businessTypes: ["Personal Care & Services", "Education", "Manufacturing"],
+            businessTypes: [
+                { id: 1, Category: "Personal Care & Services" },
+                { id: 2, Category: "Education" },
+                { id: 3, Category: "Manufacturing" }
+            ],
             businesses: [
                 { id: 1, businessTypeId: 1, companyName: "Devease", address1: "320 Stallings Dr.", address2: "", city: "McDonough", state: "GA", postalCode: "30252" }
             ],

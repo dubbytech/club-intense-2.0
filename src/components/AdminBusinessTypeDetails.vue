@@ -17,26 +17,26 @@
             </v-row>
             <v-row justify="space-between">
                 <v-col cols="12" md="5">
-                    <div>Available Hometowns</div>
-                    <v-row dense v-for="hometown in hometowns" :key="hometown.id">
+                    <div>Available Business Types</div>
+                    <v-row dense v-for="businessType in businessTypes" :key="businessType.id">
                         <v-col cols="12" md="8">
-                            <v-card class="pa-2" outlined tile>{{hometown.Name}}</v-card>
+                            <v-card class="pa-2" outlined tile>{{businessType.Category}}</v-card>
                         </v-col>
                         <v-col cols="6" md="4">
-                            <v-btn class="ma-2" tile outlined color="error" @click="deleteHometown(hometown.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                            <v-btn class="ma-2" tile outlined color="error" @click="deleteBusinessType(businessType.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                         </v-col>
                     </v-row>
                 </v-col>
                 <v-col cols="12" md="5">
-                    <div>Create Hometown</div>
+                    <div>Create BusinessType</div>
                     <v-row>
                         <v-col class="d-flex" cols="12">
-                            <v-text-field v-model="hometownName" :rules="hometownRules" :counter="50" label="New Hometown" required></v-text-field>
+                            <v-text-field v-model="businessTypeName" :rules="businessTypeRules" :counter="50" label="New Business Type" required></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12" md="4">
-                            <v-btn :disabled="!valid" color="success" class="mr-4" @click="createHometown">Create Hometown</v-btn>
+                            <v-btn :disabled="!valid" color="success" class="mr-4" @click="createBusinessType">Create Business Type</v-btn>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -49,17 +49,17 @@
         data: () => ({
             valid: false,
             inset: false,
-            hometownName: "",
-            hometowns: [
-                { id: 1, Name: "Abatete" },
-                { id: 2, Name: "Nkpor" },
-                { id: 3, Name: "Umuoji" }
+            businessTypeName: "",
+            businessTypes: [
+                { id: 1, Category: "Personal Care & Services" },
+                { id: 2, Category: "Education" },
+                { id: 3, Category: "Manufacturing" }
             ],
-            hometownRules: [
-                v => !!v || 'Hometown is required',
-                v => v.length <= 50 || 'Name must not be more than 50 characters',
+            businessTypeRules: [
+                v => !!v || 'BusinessType is required',
+                v => v.length <= 100 || 'Category must not be more than 100 characters',
             ],
-            selectedhometownId: "",
+            selectedBusinessTypeId: "",
             createdBy: 0,
             createdTs: null,
             changedBy: 0,
@@ -67,7 +67,7 @@
             message: "",
             success: false,
             error: false,
-           
+
         }),
         methods: {
             validate() {
@@ -80,14 +80,14 @@
             resetValidation() {
                 this.$refs.form.resetValidation()
             },
-            createHometown() {
-                alert("added: " + this.hometownName);
+            createBusinessType() {
+                alert("added: " + this.businessTypeName);
                 this.error = false;
                 this.success = true;
                 this.valid = false;
             },
-            deleteHometown(id) {
-                alert("delete hometown: " + id);
+            deleteBusinessType(id) {
+                alert("delete businessType: " + id);
                 this.success = false;
                 this.error = true;
                 this.valid = false

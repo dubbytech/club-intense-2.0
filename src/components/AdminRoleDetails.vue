@@ -1,6 +1,20 @@
 <template>
     <v-form ref="form" v-model="valid" lazy-validation>
         <v-container>
+            <v-row v-if="success">
+                <v-col cols="12">
+                    <v-alert dense type="success">
+                        Successfully updated.
+                    </v-alert>
+                </v-col>
+            </v-row>
+            <v-row v-if="error">
+                <v-col cols="12">
+                    <v-alert dense type="error">
+                        Error updating record.
+                    </v-alert>
+                </v-col>
+            </v-row>
             <v-row justify="space-between">
                 <v-col cols="12" md="5">
                     <div>Available roles</div>
@@ -121,10 +135,9 @@
                 this.valid = false;
             },
             createRole() {
-                this.reset();
                 alert("added: " + this.roleName);
                 this.error = false;
-                this.success = false;
+                this.success = true;
                 this.valid = false;
             },
             deleteRole(id, name) {
