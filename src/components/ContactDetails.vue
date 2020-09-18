@@ -32,6 +32,11 @@
             </v-row>
             <v-row>
                 <v-col cols="12">
+                    <v-textarea clearable row-height="10" :rules="messageRules" name="message" filled label="Message" auto-grow v-model="message"></v-textarea>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12">
                     <v-btn :disabled="!valid" color="success" class="mr-4" @click="sendEmail">Submit</v-btn>
                     <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
                 </v-col>
@@ -71,6 +76,10 @@
             subject: "",
             subjectRules: [
                 v => !!v || 'subject is required'
+            ],
+            message: "",
+            messageRules: [
+                v => !!v || 'message is required'
             ],
             success: false,
             error: false

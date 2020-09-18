@@ -5,9 +5,12 @@
         </v-card-title>
         <v-tabs v-model="tab" background-color="primary" center-active dark show-arrows>
             <v-tab>Register member</v-tab>
-            <v-tab>Manage member roles</v-tab>
-            <v-tab>Manage member payments</v-tab>
-            <v-tab>Manage membership</v-tab>
+            <v-tab>Manage roles</v-tab>
+            <v-tab>Manage payments</v-tab>
+            <v-tab>Manage committees</v-tab>
+            <v-tab>Manage Hometowns</v-tab>
+            <v-tab>Manage Business types</v-tab>
+            <v-tab>Manage memberships</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
@@ -28,6 +31,27 @@
                 <v-card flat>
                     <v-card-text>
                         <admin-payment-details></admin-payment-details>
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        manage committees
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        manage hometowns
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        manage business types
                     </v-card-text>
                 </v-card>
             </v-tab-item>
