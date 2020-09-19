@@ -6,6 +6,7 @@
         <v-tabs v-model="tab" background-color="primary" center-active dark show-arrows>
             <v-tab>Club info</v-tab>
             <v-tab>Application settings</v-tab>
+            <v-tab>Landing Pages</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
@@ -22,6 +23,13 @@
                     </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        <landing-page-details></landing-page-details>
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs-items>
     </v-card>
 </template>
@@ -29,11 +37,13 @@
 <script>
     import ClubInfoDetails from "@/components/ClubInfoDetails";
     import ApplicationSettingsDetails from "@/components/ApplicationSettingsDetails";
+    import LandingPageDetails from "@/components/LandingPageDetails";
 
     export default {
         components: {
             ClubInfoDetails,
-            ApplicationSettingsDetails
+            ApplicationSettingsDetails,
+            LandingPageDetails
         },
         data() {
             return {
