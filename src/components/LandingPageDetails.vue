@@ -200,7 +200,7 @@
             submitEditor(view) {
                 switch (view) {
                     case 'Home':
-                        // code block
+                        alert("editorData" + view + ":" + this.editorDataHome);
                         break;
                     case 'About':
                         // code block
@@ -211,7 +211,7 @@
                     default:
                     // code block
                 }
-                alert("editorData" + view);
+               
             }
         },
     }
