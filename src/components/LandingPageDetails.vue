@@ -39,7 +39,8 @@
                             <v-tab>Member Only</v-tab>
                             <v-tab>Admin</v-tab>
                             <v-tab>Contact</v-tab>
-
+                        </v-tabs>
+                        <v-tabs-items v-model="tab">
                             <v-tab-item>
                                 <v-card flat>
                                     <v-card-text>
@@ -131,7 +132,7 @@
                                     </v-card-text>
                                 </v-card>
                             </v-tab-item>
-                        </v-tabs>
+                        </v-tabs-items>
                     </v-card>
                 </template>
             </v-row>
@@ -203,15 +204,27 @@
                         alert("editorData" + view + ":" + this.editorDataHome);
                         break;
                     case 'About':
-                        // code block
+                        alert("editorData" + view + ":" + this.editorDataAbout);
                         break;
                     case 'Gallery':
-                        // code block
+                        alert("editorData" + view + ":" + this.editorDataGallery);
+                        break;
+                    case 'Publication':
+                        alert("editorData" + view + ":" + this.editorDataPublication);
+                        break;
+                    case 'Member':
+                        alert("editorData" + view + ":" + this.editorDataMember);
+                        break;
+                    case 'Admin':
+                        alert("editorData" + view + ":" + this.editorDataAdmin);
+                        break;
+                    case 'Contact':
+                        alert("editorData" + view + ":" + this.editorDataContact);
                         break;
                     default:
                     // code block
                 }
-               
+
             }
         },
     }
