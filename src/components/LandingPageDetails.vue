@@ -32,101 +32,17 @@
                                 :next-icon="nextIcon ? 'mdi-arrow-right-bold-box-outline' : undefined"
                                 :icons-and-text="icons">
                             <v-tabs-slider></v-tabs-slider>
-                            <v-tab>Home</v-tab>
-                            <v-tab>About</v-tab>
-                            <v-tab>Gallery</v-tab>
-                            <v-tab>Publication</v-tab>
-                            <v-tab>Member Only</v-tab>
-                            <v-tab>Admin</v-tab>
-                            <v-tab>Contact</v-tab>
+                            <v-tab v-for="i in landingPages" :key="i.id">{{i.title}}</v-tab>
                         </v-tabs>
                         <v-tabs-items v-model="tab">
-                            <v-tab-item>
+                            <v-tab-item v-for="i in landingPages" :key="i.id">
                                 <v-card flat>
                                     <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataHome" :config="editorConfig"></ckeditor>
+                                        <ckeditor :editor="editor" v-model="i.pageContent" :config="editorConfig"></ckeditor>
                                         <v-row>
                                             <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('Home')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('Home')">Reset</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-text>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat>
-                                    <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataAbout" :config="editorConfig"></ckeditor>
-                                        <v-row>
-                                            <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('About')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('About')">Reset</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-text>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat>
-                                    <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataGallery" :config="editorConfig"></ckeditor>
-                                        <v-row>
-                                            <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('Gallery')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('Gallery')">Reset</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-text>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat>
-                                    <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataPublication" :config="editorConfig"></ckeditor>
-                                        <v-row>
-                                            <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('Publication')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('Publication')">Reset</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-text>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat>
-                                    <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataMember" :config="editorConfig"></ckeditor>
-                                        <v-row>
-                                            <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('Member')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('Member')">Reset</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-text>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat>
-                                    <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataAdmin" :config="editorConfig"></ckeditor>
-                                        <v-row>
-                                            <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('Admin')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('Admin')">Reset</v-btn>
-                                            </v-col>
-                                        </v-row>
-                                    </v-card-text>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat>
-                                    <v-card-text>
-                                        <ckeditor :editor="editor" v-model="editorDataContact" :config="editorConfig"></ckeditor>
-                                        <v-row>
-                                            <v-col cols="12" md="6">
-                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor('Contact')">Submit</v-btn>
-                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor('Contact')">Reset</v-btn>
+                                                <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitEditor(i)">Submit</v-btn>
+                                                <v-btn :disabled="!valid" color="error" class="mr-4" @click="emptyEditor(i)">Reset</v-btn>
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
@@ -144,99 +60,44 @@
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
-        data: () => {
-            return {
-                valid: false,
-                editor: ClassicEditor,
-                editorDataHome: '',
-                editorDataAbout: '',
-                editorDataGallery: '',
-                editorDataPublication: '',
-                editorDataMember: '',
-                editorDataAdmin: '',
-                editorDataContact: '',
-                editorConfig: {
-                    // The configuration of the rich-text editor.
-                },
-                landingPages: [
-                    { id: 1, title: "Home", pageContent: "<p>Home landing page</p>", isActive: true },
-                    { id: 2, title: "About", pageContent: "<p>About landing page</p>", isActive: true },
-                    { id: 3, title: "Gallery", pageContent: "<p>Gallery landing page</p>", isActive: true },
-                    { id: 4, title: "Publication", pageContent: "<p>Publication landing page</p>", isActive: true },
-                    { id: 5, title: "Member", pageContent: "<p>Member landing page</p>", isActive: true },
-                    { id: 6, title: "Admin", pageContent: "<p>Admin landing page</p>", isActive: true },
-                    { id: 7, title: "Contact", pageContent: "<p>Contact landing page</p>", isActive: true }
-                ],
-                tab: null,
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                icons: false,
-                centered: false,
-                grow: true,
-                vertical: false,
-                prevIcon: false,
-                nextIcon: false,
-                right: false,
-                tabs: 3,
-            };
-        },
+        data: () => ({
+            valid: false,
+            editor: ClassicEditor,
+            editorConfig: {
+                // The configuration of the rich-text editor.
+            },
+            landingPages: [
+                { id: 1, title: "Home", pageContent: "<p>Home landing page</p>", isActive: true },
+                { id: 2, title: "About", pageContent: "<p>About landing page</p>", isActive: true },
+                { id: 3, title: "Gallery", pageContent: "<p>Gallery landing page</p>", isActive: true },
+                { id: 4, title: "Publication", pageContent: "<p>Publication landing page</p>", isActive: true },
+                { id: 5, title: "Member", pageContent: "<p>Member landing page</p>", isActive: true },
+                { id: 6, title: "Admin", pageContent: "<p>Admin landing page</p>", isActive: true },
+                { id: 7, title: "Contact", pageContent: "<p>Contact landing page</p>", isActive: true },
+                { id: 8, title: "Site Setup", pageContent: "<p>Site Setup landing page</p>", isActive: true }
+            ],
+            tab: null,
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+            icons: false,
+            centered: false,
+            grow: true,
+            vertical: false,
+            prevIcon: false,
+            nextIcon: false,
+            right: false,
+            tabs: 3,
+
+        }),
         methods: {
             emptyEditor(view) {
-                switch (view) {
-                    case 'Home':
-                        this.editorDataHome = "";
-                        break;
-                    case 'About':
-                        this.editorDataAbout = "";
-                        break;
-                    case 'Gallery':
-                        this.editorDataGallery = "";
-                        break;
-                    case 'Publication':
-                        this.editorDataPublication = "";
-                        break;
-                    case 'Member':
-                        this.editorDataMember = "";
-                        break;
-                    case 'Admin':
-                        this.editorDataAdmin = "";
-                        break;
-                    case 'Contact':
-                        this.editorDataContact = "";
-                        break;
-                    default:
-                    // code block
-                }
+                view.pageContent = "";
             },
             submitEditor(view) {
-                switch (view) {
-                    case 'Home':
-                        alert("editorData" + view + ":" + this.editorDataHome);
-                        break;
-                    case 'About':
-                        alert("editorData" + view + ":" + this.editorDataAbout);
-                        break;
-                    case 'Gallery':
-                        alert("editorData" + view + ":" + this.editorDataGallery);
-                        break;
-                    case 'Publication':
-                        alert("editorData" + view + ":" + this.editorDataPublication);
-                        break;
-                    case 'Member':
-                        alert("editorData" + view + ":" + this.editorDataMember);
-                        break;
-                    case 'Admin':
-                        alert("editorData" + view + ":" + this.editorDataAdmin);
-                        break;
-                    case 'Contact':
-                        alert("editorData" + view + ":" + this.editorDataContact);
-                        break;
-                    default:
-                    // code block
-                }
-
+                alert(view.pageContent);
             }
         },
     }
+
 </script>
 <style scoped>
 </style>
