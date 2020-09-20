@@ -7,6 +7,7 @@
             <v-tab>Club info</v-tab>
             <v-tab>Application settings</v-tab>
             <v-tab>Landing Pages</v-tab>
+            <v-tab>Manage Admins</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
@@ -30,6 +31,13 @@
                     </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        <admin-details></admin-details>
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs-items>
     </v-card>
 </template>
@@ -38,12 +46,14 @@
     import ClubInfoDetails from "@/components/ClubInfoDetails";
     import ApplicationSettingsDetails from "@/components/ApplicationSettingsDetails";
     import LandingPageDetails from "@/components/LandingPageDetails";
+    import AdminDetails from "@/components/AdminDetails";
 
     export default {
         components: {
             ClubInfoDetails,
             ApplicationSettingsDetails,
-            LandingPageDetails
+            LandingPageDetails,
+            AdminDetails
         },
         data() {
             return {
