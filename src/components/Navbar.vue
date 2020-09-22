@@ -22,7 +22,6 @@
 
         <v-navigation-drawer v-model="drawer" absolute temporary app class="primary">
             <v-list v-if="!authenticated">
-                <!-- v-list-tile is changed to v-list-item -->
                 <v-list-item v-for="link in generalLinks" :key="link.text" router :to="link.route">
                     <v-list-item-action>
                         <v-icon class="white--text">{{ link.icon }}</v-icon>
@@ -34,8 +33,7 @@
             </v-list>
             <v-list v-else>
                 <!--//authenticated links-->
-                <!-- v-list-tile is changed to v-list-item -->
-                <v-list-item v-for="link in authenticatedlinks" :key="link.text" router :to="link.route">
+                <v-list-item v-for="link in authenticatedLinks" :key="link.text" router :to="link.route">
                     <v-list-item-action>
                         <v-icon class="white--text">{{ link.icon }}</v-icon>
                     </v-list-item-action>
@@ -59,7 +57,7 @@
             src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
             dialog: false,
             authenticated: false,
-            authenticatedlinks: [
+            authenticatedLinks: [
                 { icon: 'contacts', text: 'Home', route: '/' },
                 { icon: 'contacts', text: 'About', route: '/about' },
                 { icon: 'contacts', text: 'Gallery', route: '/gallery' },
@@ -76,12 +74,13 @@
                 { icon: 'contacts', text: 'Login/Register', route: '/loginRegister' }
             ]
         }),
-        methods: {
-
-        },
         mounted() {
             this.authenticated = false;
         },
+        methods: {
+
+        }
+
     }
 </script>
 

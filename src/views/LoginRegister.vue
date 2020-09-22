@@ -17,9 +17,9 @@
             </v-row>
             <v-row>
                 <v-card>
-                    <template v-slot:activator="{ on, attrs }">
+                    <!--<template v-slot:activator="{ on, attrs }">
                         <v-btn class="white--text" text v-bind="attrs" v-on="on">Login/Register</v-btn>
-                    </template>
+                    </template>-->
                     <v-card v-if="showLogin">
                         <v-card-title class="headline">Login</v-card-title>
                         <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
@@ -42,7 +42,6 @@
             </v-row>
         </v-container>
     </v-form>
-
 </template>
 
 <script>
