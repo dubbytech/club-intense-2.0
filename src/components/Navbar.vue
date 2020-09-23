@@ -14,7 +14,7 @@
                 </v-btn>
             </v-toolbar-title>
             <v-toolbar-title v-else>
-                <v-btn text class="hidden-sm-and-down" v-for="link in authenticatedlinks" :key="link.text" router :to="link.route">
+                <v-btn text class="hidden-sm-and-down" v-for="link in authenticatedLinks" :key="link.text" router :to="link.route">
                     <span>{{ link.text }}</span>
                 </v-btn>
             </v-toolbar-title>
@@ -61,7 +61,7 @@
             src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
             dialog: false,
             member: null,
-            authenticated: false,
+            authenticated: localStorage.authenticated,
             errors: [],
             authenticatedLinks: [
                 { icon: 'contacts', text: 'Home', route: '/' },
@@ -77,11 +77,16 @@
                 { icon: 'contacts', text: 'About', route: '/about' },
                 { icon: 'contacts', text: 'Gallery', route: '/gallery' },
                 { icon: 'contacts', text: 'Contact', route: '/contact' },
-                { icon: 'contacts', text: 'Login/Register', route: '/loginRegister' }
+                { icon: 'contacts', text: 'Login', route: '/login' }
             ]
         }),
+        created() {
+            if (localStorage.authenticated) {
+                delete localStorage.authenticated
+            }
+        },
         mounted() {
-            //this.authenticated = false;
+           
             //HTTP.get('Identity/Account/Register')
             //    .then(response => {
             //        this.member = response.data;
@@ -93,6 +98,9 @@
             //        //this.errors.push(error)
 
             //});
+        },
+        watch: {
+         
         },
         methods: {
             isAuthenticated() {

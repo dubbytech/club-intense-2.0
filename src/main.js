@@ -4,9 +4,11 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import CKEditor from "@ckeditor/ckeditor5-vue";
+import { HTTP } from "./http-common.js";
 
 Vue.config.productionTip = false;
 Vue.use(CKEditor);
+Vue.use(HTTP);
 
 new Vue({
     router,

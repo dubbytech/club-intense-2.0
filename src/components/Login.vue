@@ -17,7 +17,7 @@
             </v-row>-->
             <v-row>
                 <v-card>
-                    <v-card v-if="showLogin">
+                    <v-card>
                         <v-card-title class="headline">Login</v-card-title>
                         <div class="login-wrapper border border-light">
                             <form class="form-signin" @submit.prevent="login">
@@ -30,16 +30,6 @@
                             </form>
                         </div>
                     </v-card>
-                    <v-card v-else>
-                        <v-card-title class="headline">Register</v-card-title>
-                        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="green darken-1" text @click="register">Register</v-btn>
-                            <v-btn color="green darken-1" text @click="cancel">Cancel</v-btn>
-
-                        </v-card-actions>
-                    </v-card>
                 </v-card>
             </v-row>
         </v-container>
@@ -47,13 +37,11 @@
 </template>
 
 <script>
-    import { HTTP } from "../http-common.js";
+    //import { HTTP } from "../http-common.js";
 
     export default {
         data: () => ({
             valid: false,
-            authenticated: false,
-            showLogin: true,
             success: "",
             error: "",
             email: "",
@@ -63,20 +51,13 @@
             login() {
                 console.log(this.email);
                 console.log(this.password);
+                localStorage.authenticated = true;
+                this.$router.replace(this.$route.query.redirect || '/');
+                window.location.reload();
 
-                HTTP.post('Identity/Account/Login', { email: this.email, password: this.password })
-                    .then(response => this.loginSuccessful(response))
-                    .catch(() => this.loginFailed())
-            },
-            register() {
-                this.showLogin = false;
-                //this.authenticated = true;
-                //this.success = true;
-                //this.error = false;
-                //this.valid = false;
-            },
-            cancel() {
-                this.showLogin = true;
+                //HTTP.post('Identity/Account/Login', { email: this.email, password: this.password })
+                //    .then(response => this.loginSuccessful(response))
+                //    .catch(() => this.loginFailed())
             },
             loginSuccessful(response) {
                 if (!response.data.token) {
@@ -86,7 +67,7 @@
                 localStorage.token = response.data.token
                 this.error = false
 
-                this.$router.replace(this.$route.query.redirect || '/home')
+                this.$router.replace(this.$route.query.redirect || '/')
             },
             loginFailed() {
                 this.error = 'Login failed!';
