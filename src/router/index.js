@@ -71,7 +71,7 @@ const routes = [
         // this generates a separate chunk (loginRegister.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-            import(/* webpackChunkName: "contact" */ "../views/LoginRegister.vue")
+            import(/* webpackChunkName: "contact" */ "../components/LoginRegister.vue")
     }
 ];
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-toolbar app dark prominent :src="src">
+        <v-toolbar dark prominent :src="src">
             <v-app-bar-nav-icon class="grey--text hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="grey--text">
                 <!--<span class="font-weight-light">Site</span>-->
@@ -20,7 +20,7 @@
             </v-toolbar-title>
         </v-toolbar>
 
-        <v-navigation-drawer v-model="drawer" absolute temporary app class="primary">
+        <v-navigation-drawer v-model="drawer" absolute temporary class="primary">
             <v-list v-if="!authenticated">
                 <v-list-item v-for="link in generalLinks" :key="link.text" router :to="link.route">
                     <v-list-item-action>
@@ -47,16 +47,22 @@
 </template>
 
 <script>
+    //import { HTTP } from "../http-common.js";
+    //import LoginRegister from "@/components/LoginRegister";
+
     export default {
         name: "Navbar",
         components: {
+            //LoginRegister
         },
         data: () => ({
             drawer: false,
             siteTitle: "Organization Name",
             src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
             dialog: false,
+            member: null,
             authenticated: false,
+            errors: [],
             authenticatedLinks: [
                 { icon: 'contacts', text: 'Home', route: '/' },
                 { icon: 'contacts', text: 'About', route: '/about' },
@@ -75,10 +81,23 @@
             ]
         }),
         mounted() {
-            this.authenticated = false;
+            //this.authenticated = false;
+            //HTTP.get('Identity/Account/Register')
+            //    .then(response => {
+            //        this.member = response.data;
+            //         console.log(this.member);
+            //    })
+            //    .catch(error => {
+            //        this.authenticated = true;
+            //         console.log(error.response);
+            //        //this.errors.push(error)
+
+            //});
         },
         methods: {
-
+            isAuthenticated() {
+                alert("event from parent");
+            }
         }
 
     }
