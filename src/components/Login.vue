@@ -47,6 +47,11 @@
             email: "",
             password: ""
         }),
+        created() {
+            if (localStorage.authenticated) {
+                delete localStorage.authenticated
+            }
+        },
         methods: {
             login() {
                 console.log(this.email);

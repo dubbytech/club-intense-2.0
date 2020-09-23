@@ -71,6 +71,7 @@
                 { icon: 'contacts', text: 'Admin', route: '/admin' },
                 { icon: 'contacts', text: 'Contact', route: '/contact' },
                 { icon: 'contacts', text: 'Site Setup', route: '/setup' }
+
             ],
             generalLinks: [
                 { icon: 'contacts', text: 'Home', route: '/' },
