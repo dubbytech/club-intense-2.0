@@ -48,36 +48,31 @@
             password: ""
         }),
         created() {
-            if (localStorage.authenticated) {
-                delete localStorage.authenticated
-            }
+          
+        },
+        updated() {
+          
         },
         methods: {
             login() {
                 console.log(this.email);
                 console.log(this.password);
-                localStorage.authenticated = true;
+                this.$store.commit("change", true);
                 this.$router.replace(this.$route.query.redirect || '/');
-                window.location.reload();
+                //window.location.reload();
 
                 //HTTP.post('Identity/Account/Login', { email: this.email, password: this.password })
                 //    .then(response => this.loginSuccessful(response))
                 //    .catch(() => this.loginFailed())
             },
-            loginSuccessful(response) {
-                if (!response.data.token) {
-                    this.loginFailed()
-                    return
-                }
-                localStorage.token = response.data.token
-                this.error = false
-
-                this.$router.replace(this.$route.query.redirect || '/')
+            checkCurrentLogin() {
+              
+            },
+            loginSuccessful() {
+               
             },
             loginFailed() {
-                this.error = 'Login failed!';
-                delete localStorage.token;
-                console.log(this.error);
+               
             }
         }
     }

@@ -17,7 +17,16 @@
             Footer
         },
         data: () => ({
-           //
+            //
         }),
+        beforeDestroy() {
+           
+        },
+        created() {
+           
+        },
+        mounted() {
+            
+        },
     }
 </script>

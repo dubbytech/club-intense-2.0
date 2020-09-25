@@ -5,10 +5,11 @@
             <v-toolbar-title class="grey--text">
                 <!--<span class="font-weight-light">Site</span>-->
                 <span>{{siteTitle}}</span>
+                <p>You chose {{ $store.getters.authenticated }}</p>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-toolbar-title v-if="!authenticated">
+            <v-toolbar-title v-if="!$store.getters.authenticated">
                 <v-btn text class="hidden-sm-and-down" v-for="link in generalLinks" :key="link.text" router :to="link.route">
                     <span>{{ link.text }}</span>
                 </v-btn>
@@ -21,7 +22,7 @@
         </v-toolbar>
 
         <v-navigation-drawer v-model="drawer" absolute temporary class="primary">
-            <v-list v-if="!authenticated">
+            <v-list v-if="!$store.getters.authenticated">
                 <v-list-item v-for="link in generalLinks" :key="link.text" router :to="link.route">
                     <v-list-item-action>
                         <v-icon class="white--text">{{ link.icon }}</v-icon>
@@ -61,7 +62,7 @@
             src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
             dialog: false,
             member: null,
-            authenticated: localStorage.authenticated,
+            authenticated: false,
             errors: [],
             authenticatedLinks: [
                 { icon: 'contacts', text: 'Home', route: '/' },
@@ -81,32 +82,23 @@
                 { icon: 'contacts', text: 'Login', route: '/login' }
             ]
         }),
+        beforeDestroy() {
+
+        },
         created() {
-            if (localStorage.authenticated) {
-                delete localStorage.authenticated
-            }
+
         },
         mounted() {
-           
-            //HTTP.get('Identity/Account/Register')
-            //    .then(response => {
-            //        this.member = response.data;
-            //         console.log(this.member);
-            //    })
-            //    .catch(error => {
-            //        this.authenticated = true;
-            //         console.log(error.response);
-            //        //this.errors.push(error)
 
-            //});
+        },
+        updated() {
+
         },
         watch: {
-         
+
         },
         methods: {
-            isAuthenticated() {
-                alert("event from parent");
-            }
+
         }
 
     }

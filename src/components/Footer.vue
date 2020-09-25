@@ -19,6 +19,6 @@
                 { icon: 'contacts', text: 'Contact', route: '/contact' }
             ],
             company: "Dubby Tech"
-        }),
+        })
     }
 </script>
