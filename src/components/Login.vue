@@ -57,9 +57,17 @@
             login() {
                 console.log(this.email);
                 console.log(this.password);
-                this.$store.commit("change", true);
+                //this.$store.commit("change", true);
+                var a = 1;
+                if (a == 1) {
+                    this.$session.set("authenticated", true);
+                }
+                else {
+                    this.$session.set("authenticated", false);
+                }
+                //this.$session.set("authenticated", false);
                 this.$router.replace(this.$route.query.redirect || '/');
-                //window.location.reload();
+                window.location.reload();
 
                 //HTTP.post('Identity/Account/Login', { email: this.email, password: this.password })
                 //    .then(response => this.loginSuccessful(response))

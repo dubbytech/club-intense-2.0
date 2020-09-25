@@ -5,11 +5,10 @@
             <v-toolbar-title class="grey--text">
                 <!--<span class="font-weight-light">Site</span>-->
                 <span>{{siteTitle}}</span>
-                <p>You chose {{ $store.getters.authenticated }}</p>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-toolbar-title v-if="!$store.getters.authenticated">
+            <v-toolbar-title v-if="!authenticated">
                 <v-btn text class="hidden-sm-and-down" v-for="link in generalLinks" :key="link.text" router :to="link.route">
                     <span>{{ link.text }}</span>
                 </v-btn>
@@ -22,7 +21,7 @@
         </v-toolbar>
 
         <v-navigation-drawer v-model="drawer" absolute temporary class="primary">
-            <v-list v-if="!$store.getters.authenticated">
+            <v-list v-if="!authenticated">
                 <v-list-item v-for="link in generalLinks" :key="link.text" router :to="link.route">
                     <v-list-item-action>
                         <v-icon class="white--text">{{ link.icon }}</v-icon>
@@ -89,13 +88,18 @@
 
         },
         mounted() {
-
+            if (this.$session.get('authenticated')) {
+                this.authenticated = true;
+            }
+            else {
+                this.authenticated = false;
+            }
         },
         updated() {
-
+            //alert("updated");
         },
         watch: {
-
+            
         },
         methods: {
 
