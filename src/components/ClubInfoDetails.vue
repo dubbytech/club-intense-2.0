@@ -25,7 +25,7 @@
                     <v-text-field v-model="address1" :rules="address1Rules" :counter="50" label="Address1" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <v-text-field v-model="address2" :rules="address2Rules" :counter="50" label="Address2" required></v-text-field>
+                    <v-text-field v-model="address2"  :counter="50" label="Address2" ></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -33,7 +33,7 @@
                     <v-text-field v-model="city" :rules="cityRules" :counter="50" label="City" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="state" :rules="stateRules" :counter="50" label="State" required></v-text-field>
+                    <v-text-field v-model="state" :rules="stateRules" label="State" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
                     <v-text-field v-model="zipCode" :rules="zipCodeRules" :counter="5" label="Zip code" required></v-text-field>
@@ -47,12 +47,12 @@
                     <v-text-field v-model="phone" :rules="phoneRules" :counter="10" label="Phone" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="fax" :rules="faxRules" :counter="10" label="Fax"></v-text-field>
+                    <v-text-field v-model="fax"  :counter="10" label="Fax"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="siteTypes" :rules="siteRules" label="Site type" required></v-select>
+                    <v-select :items="siteTypes" :rules="siteRules" v-model="selectedSiteType" item-text="Category" item-value="id" label="Site type" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -66,6 +66,8 @@
 </template>
 
 <script>
+    import { HTTP } from "../http-common.js";
+
     export default {
         data: () => ({
             valid: false,
@@ -77,7 +79,13 @@
             city: "",
             state: "",
             zipCode: "",
-            siteTypes: ["Culture", "Non-profit"],
+            siteTypes: [
+                { id: 1, Category: "Personal Care & Services" },
+                { id: 2, Category: "Education" },
+                { id: 3, Category: "Manufacturing" },
+                { id: 4, Category: "IT" },
+            ],
+            selectedSiteType:"",
             phone: "",
             fax: "",
             imageId: "",
@@ -122,7 +130,15 @@
                 v => !!v || 'City is required',
                 v => v.length <= 50 || 'City must not be greater than 50 characters',
             ],
+            stateRules: [
+                v => !!v || 'State is required'
+            ],
         }),
+        mounted() {
+            HTTP.get('/api/siteinfo/')
+                .then(response => this.populateSiteInfo(response.data.results.data[0]))
+                .catch(() => this.getFailed())
+        },
         methods: {
             validate() {
                 this.$refs.form.validate();
@@ -143,6 +159,22 @@
                 alert("delete");
                 this.error = true;
                 this.success = false;
+            },
+            populateSiteInfo(data) {
+                console.log(data);
+                this.name = data.name;
+                this.address1 = data.address1;
+                this.address2 = data.address2;
+                this.city = data.city;
+                this.state = data.state;
+                this.zipCode = data.postalCode;
+                this.email = data.email;
+                this.phone = data.phone;
+                this.fax = data.fax;
+                this.selectedSiteType = data.siteTypeId;
+            },
+            getFailed() {
+                console.log("get failed");
             }
         },
     }

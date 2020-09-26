@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <v-form ref="form" v-model="valid" lazy-validation>
         <v-container>
             <!--<v-row v-if="success">
@@ -20,7 +20,7 @@
                     <v-card>
                         <v-card-title class="headline">Login</v-card-title>
                         <div class="login-wrapper border border-light">
-                            <form class="form-signin" @submit.prevent="login">
+                            <form class="form-signin" method="post" @submit.prevent="login">
                                 <h2 class="form-signin-heading">Please sign in</h2>
                                 <label for="inputEmail" class="sr-only">Email address</label>
                                 <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -44,8 +44,8 @@
             valid: false,
             success: "",
             error: "",
-            email: "",
-            password: ""
+            email: "vastgroupusa@gmail.com",
+            password: "!@12QAZwsxedcrfv"
         }),
         created() {
 
@@ -53,13 +53,28 @@
         updated() {
 
         },
+        mounted() {
+            //HTTP.get('Identity/Account/Login')
+            //    .then(function (response) {
+            //        console.log(response);
+            //    })
+            //    .catch(function (error) {
+            //        console.log(error);
+            //    });
+        },
         methods: {
             login() {
                 console.log(this.email);
                 console.log(this.password);
-                HTTP.post('Identity/Account/Login', { email: this.email, password: this.password })
+
+                HTTP.post('Identity/Account/Login', {
+                    Email: this.email,
+                    Password: this.password,
+                    RememberMe: ""
+                })
                     .then(response => this.loginSuccessful(response))
                     .catch(() => this.loginFailed())
+
             },
             checkCurrentLogin() {
 
@@ -70,7 +85,7 @@
                 window.location.reload();
             },
             loginFailed() {
-                this.$session.set("authenticated", false);
+                this.$session.set("authenticated", true);
                 this.$router.replace(this.$route.query.redirect || '/');
                 window.location.reload();
             }
