@@ -25,7 +25,7 @@
                     <v-text-field v-model="address1" :rules="address1Rules" :counter="50" label="Address1" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <v-text-field v-model="address2"  :counter="50" label="Address2" ></v-text-field>
+                    <v-text-field v-model="address2" :counter="50" label="Address2"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -47,12 +47,12 @@
                     <v-text-field v-model="phone" :rules="phoneRules" :counter="10" label="Phone" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="fax"  :counter="10" label="Fax"></v-text-field>
+                    <v-text-field v-model="fax" :counter="10" label="Fax"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="siteTypes" :rules="siteRules" v-model="selectedSiteType" item-text="Category" item-value="id" label="Site type" required></v-select>
+                    <v-select :items="siteTypes" :rules="siteRules" v-model="selectedSiteTypeId" item-text="Category" item-value="id" label="Site type" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -85,12 +85,12 @@
                 { id: 3, Category: "Manufacturing" },
                 { id: 4, Category: "IT" },
             ],
-            selectedSiteType:"",
+            selectedSiteTypeId: "",
             phone: "",
             fax: "",
             imageId: "",
             createdBy: 0,
-            createdTs: null,
+            createdTs: "",
             changedBy: 0,
             changedTs: null,
             message: "",
@@ -152,8 +152,27 @@
             },
             submitSiteInfo() {
                 alert("submit");
-                this.success = true;
-                this.error = false;
+                HTTP.post('/api/siteinfo/', {
+                    id: 0,
+                    name: this.name,
+                    address1: this.address1,
+                    address2: this.address2,
+                    city: this.city,
+                    state: this.state,
+                    postalCode: this.zipCode,
+                    siteTypeId: this.selectedSiteTypeId,
+                    phone: this.phone,
+                    email:this.email,
+                    fax: this.fax,
+                    imageId: 0,
+                    //createdBy: 7493,
+                    //createdTs: null,
+                    //changedBy: 0,
+                    //changedTs: null
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
+
             },
             deleteSiteInfo() {
                 alert("delete");
@@ -162,6 +181,7 @@
             },
             populateSiteInfo(data) {
                 console.log(data);
+                this.siteId = data.id;
                 this.name = data.name;
                 this.address1 = data.address1;
                 this.address2 = data.address2;
@@ -171,10 +191,18 @@
                 this.email = data.email;
                 this.phone = data.phone;
                 this.fax = data.fax;
-                this.selectedSiteType = data.siteTypeId;
+                this.selectedSiteTypeId = data.siteTypeId;
             },
             getFailed() {
                 console.log("get failed");
+            },
+            saveSuccessful() {
+                this.success = true;
+                this.error = false;
+            },
+            saveFailed() {
+                this.success = false;
+                this.error = true;
             }
         },
     }
