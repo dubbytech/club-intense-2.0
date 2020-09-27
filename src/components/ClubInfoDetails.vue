@@ -44,10 +44,10 @@
                     <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="phone" :rules="phoneRules" :counter="10" label="Phone" required></v-text-field>
+                    <v-text-field v-model="phone" :rules="phoneRules" :counter="11" label="Phone" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="fax" :counter="10" label="Fax"></v-text-field>
+                    <v-text-field v-model="fax" :counter="11" label="Fax"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -104,10 +104,10 @@
             ],
             phoneRules: [
                 v => !!v || 'Phone is required',
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+                v => v.length <= 11 || 'Name must not be greater than 10 characters',
             ],
             faxRules: [
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+                v => v.length <= 11 || 'Name must not be greater than 10 characters',
             ],
             emailRules: [
                 v => !!v || 'E-mail is required',
