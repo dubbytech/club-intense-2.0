@@ -129,6 +129,7 @@
                 v => !!v || 'State is required'
             ],
         }),
+        //Begin Vue hooks
         created() {
             this.getBusinessTypes();
             this.getSiteInfo();
@@ -136,6 +137,7 @@
         mounted() {
 
         },
+        //End Vue hooks
         methods: {
             getBusinessTypes() {
                 HTTP.get('/api/businessType/')
@@ -148,7 +150,7 @@
                     .catch(() => this.getFailed())
             },
             submitSiteInfo() {
-                alert("submit");
+                //alert("submit");
                 HTTP.post('/api/siteinfo/', {
                     id: 0,
                     name: this.name,
