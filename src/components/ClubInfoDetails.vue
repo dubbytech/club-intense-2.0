@@ -52,7 +52,7 @@
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="siteTypes" :rules="siteRules" v-model="selectedSiteTypeId" item-text="Category" item-value="id" label="Site type" required></v-select>
+                    <v-select :items="siteTypes" :rules="siteRules" v-model="selectedSiteTypeId" item-text="category" item-value="id" label="Site type" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -79,12 +79,7 @@
             city: "",
             state: "",
             zipCode: "",
-            siteTypes: [
-                { id: 1, Category: "Personal Care & Services" },
-                { id: 2, Category: "Education" },
-                { id: 3, Category: "Manufacturing" },
-                { id: 4, Category: "IT" },
-            ],
+            siteTypes: [],
             selectedSiteTypeId: "",
             phone: "",
             fax: "",
@@ -134,21 +129,23 @@
                 v => !!v || 'State is required'
             ],
         }),
+        created() {
+            this.getBusinessTypes();
+            this.getSiteInfo();
+        },
         mounted() {
-            HTTP.get('/api/siteinfo/')
-                .then(response => this.populateSiteInfo(response.data.results.data[0]))
-                .catch(() => this.getFailed())
+
         },
         methods: {
-            validate() {
-                this.$refs.form.validate();
+            getBusinessTypes() {
+                HTTP.get('/api/businessType/')
+                    .then(response => this.populateBusinessType(response.data.results.data))
+                    .catch(() => this.getFailed())
             },
-            reset() {
-                this.$refs.form.reset();
-                this.valid = false;
-            },
-            resetValidation() {
-                this.$refs.form.resetValidation()
+            getSiteInfo() {
+                HTTP.get('/api/siteinfo/')
+                    .then(response => this.populateSiteInfo(response.data.results.data[0]))
+                    .catch(() => this.getFailed())
             },
             submitSiteInfo() {
                 alert("submit");
@@ -162,17 +159,13 @@
                     postalCode: this.zipCode,
                     siteTypeId: this.selectedSiteTypeId,
                     phone: this.phone,
-                    email:this.email,
+                    email: this.email,
                     fax: this.fax,
                     imageId: 0,
-                    //createdBy: 7493,
-                    //createdTs: null,
-                    //changedBy: 0,
-                    //changedTs: null
+
                 })
                     .then(() => this.saveSuccessful())
                     .catch(() => this.saveFailed())
-
             },
             deleteSiteInfo() {
                 alert("delete");
@@ -180,7 +173,7 @@
                 this.success = false;
             },
             populateSiteInfo(data) {
-                console.log(data);
+                //console.log(data);
                 this.siteId = data.id;
                 this.name = data.name;
                 this.address1 = data.address1;
@@ -193,6 +186,11 @@
                 this.fax = data.fax;
                 this.selectedSiteTypeId = data.siteTypeId;
             },
+            populateBusinessType(data) {
+                //console.log(data);
+                this.siteTypes = data;
+                //console.log(this.siteTypes);
+            },
             getFailed() {
                 console.log("get failed");
             },
@@ -203,7 +201,17 @@
             saveFailed() {
                 this.success = false;
                 this.error = true;
-            }
+            },
+            validate() {
+                this.$refs.form.validate();
+            },
+            reset() {
+                this.$refs.form.reset();
+                this.valid = false;
+            },
+            resetValidation() {
+                this.$refs.form.resetValidation()
+            },
         },
     }
 </script>
