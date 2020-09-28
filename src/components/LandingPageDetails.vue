@@ -58,6 +58,7 @@
 
 <script>
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import { HTTP } from "../http-common.js";
 
     export default {
         data: () => ({
@@ -67,14 +68,14 @@
                 // The configuration of the rich-text editor.
             },
             landingPages: [
-                { id: 1, title: "Home", pageContent: "<p>Home landing page</p>", isActive: true },
-                { id: 2, title: "About", pageContent: "<p>About landing page</p>", isActive: true },
-                { id: 3, title: "Gallery", pageContent: "<p>Gallery landing page</p>", isActive: true },
-                { id: 4, title: "Publication", pageContent: "<p>Publication landing page</p>", isActive: true },
-                { id: 5, title: "Member", pageContent: "<p>Member landing page</p>", isActive: true },
-                { id: 6, title: "Admin", pageContent: "<p>Admin landing page</p>", isActive: true },
-                { id: 7, title: "Contact", pageContent: "<p>Contact landing page</p>", isActive: true },
-                { id: 8, title: "Site Setup", pageContent: "<p>Site Setup landing page</p>", isActive: true }
+                //{ id: 1, title: "Home", pageContent: "<p>Home landing page</p>", isActive: true },
+                //{ id: 2, title: "About", pageContent: "<p>About landing page</p>", isActive: true },
+                //{ id: 3, title: "Gallery", pageContent: "<p>Gallery landing page</p>", isActive: true },
+                //{ id: 4, title: "Publication", pageContent: "<p>Publication landing page</p>", isActive: true },
+                //{ id: 5, title: "Member", pageContent: "<p>Member landing page</p>", isActive: true },
+                //{ id: 6, title: "Admin", pageContent: "<p>Admin landing page</p>", isActive: true },
+                //{ id: 7, title: "Contact", pageContent: "<p>Contact landing page</p>", isActive: true },
+                //{ id: 8, title: "Site Setup", pageContent: "<p>Site Setup landing page</p>", isActive: true }
             ],
             tab: null,
             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -86,14 +87,44 @@
             nextIcon: false,
             right: false,
             tabs: 3,
-
+            message: "",
+            success: false,
+            error: false,
         }),
+        created() {
+            this.getLandingPages();
+        },
         methods: {
-            emptyEditor(view) {
-                view.pageContent = "";
+            getLandingPages() {
+                HTTP.get('/api/landingPage/')
+                    .then(response => this.populateLandingPages(response.data.results.data))
+                    .catch(() => this.getFailed())
             },
-            submitEditor(view) {
-                alert(view.pageContent);
+            populateLandingPages(data) {
+                console.log(data);
+                this.landingPages = data;
+            },
+            emptyEditor(landingPage) {
+                landingPage.pageContent = "";
+            },
+            submitEditor(landingPage) {
+                alert(landingPage.pageContent);
+                HTTP.post('/api/landingPage/', {
+                    id: landingPage.id,
+                    title: landingPage.title,
+                    pageContent: landingPage.pageContent,
+                    isActive:landingPage.isActive
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
+            },
+            saveSuccessful() {
+                this.success = true;
+                this.error = false;
+            },
+            saveFailed() {
+                this.success = false;
+                this.error = true;
             }
         },
     }
