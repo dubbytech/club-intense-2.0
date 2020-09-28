@@ -17,58 +17,58 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="WebMasterEmail" :rules="emailRules" :counter="50" label="Webmaster Email" required></v-text-field>
+                    <v-text-field v-model="webMasterEmail" :rules="emailRules" :counter="50" label="Webmaster Email" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="WebMasterPassword" :rules="WebMasterPasswordRules" :counter="50" label="Webmaster Password" required></v-text-field>
+                    <v-text-field v-model="webMasterPassword" :rules="webMasterPasswordRules" :counter="50" label="Webmaster Password" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="ServerEmailUserName" :rules="ServerEmailUserNameRules" :counter="50" label="Server Email UserName" required></v-text-field>
+                    <v-text-field v-model="serverEmailUserName" :rules="serverEmailUserNameRules" :counter="50" label="Server Email UserName" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="ServerEmailPassword" :rules="ServerEmailPasswordRules" :counter="50" label="Server Email Password" required></v-text-field>
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="12" md="3">
-                    <v-text-field v-model="ServerEmailHost" :rules="ServerEmailHostRules" :counter="50" label="Server Email Host" required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="3">
-                    <v-text-field v-model="ServerEmailPort" :rules="ServerEmailPortRules" :counter="50" label="Server Email Port" required></v-text-field>
-                </v-col>
-                <v-col cols="12" md="3">
-                    <v-select :items="EnableSSL" :rules="EnableSSLRules" label="Server Email Enable SSL" required></v-select>
-                </v-col>
-                <v-col cols="12" md="3">
-                    <v-text-field v-model="ServerDefaultContactEmail" :rules="ServerDefaultContactEmailRules" :counter="50" label="Server Default Contact Email" required></v-text-field>
+                    <v-text-field v-model="serverEmailPassword" :rules="serverEmailPasswordRules" :counter="50" label="Server Email Password" required></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="ServerSendgridApiKey" :rules="SendgridApiKeyRules" :counter="50" label="Server Sendgrid Api Key" required></v-text-field>
+                    <v-text-field v-model="serverEmailHost" :rules="serverEmailHostRules" :counter="50" label="Server Email Host" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="DefaultRegistrationPassword" :rules="DefaultRegistrationPasswordRules" :counter="50" label="Default Registration Password" required></v-text-field>
+                    <v-text-field v-model="serverEmailPort" :rules="serverEmailPortRules" :counter="50" label="Server Email Port" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="DefaultEmailUserName" :rules="DefaultEmailUserNameRules" :counter="50" label="Default Email User Name" required></v-text-field>
+                    <v-select v-model="serverEmailEnableSSL" :items="enableSSL" :rules="enableSSLRules" label="Server Email Enable SSL" required></v-select>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="DefaultEmailPassword" :rules="DefaultEmailPasswordRules" :counter="50" label="Default Email Password" required></v-text-field>
+                    <v-text-field v-model="serverDefaultContactEmail" :rules="serverDefaultContactEmailRules" :counter="50" label="Server Default Contact Email" required></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="DefaultEmailHost" :rules="DefaultEmailHostRules" :counter="50" label="Default Email Host" required></v-text-field>
+                    <v-text-field v-model="serverSendgridApiKey" :rules="sendgridApiKeyRules" :counter="50" label="Server Sendgrid Api Key" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="DefaultEmailPort" :rules="DefaultEmailPortRules" :counter="50" label="Default Email Port" required></v-text-field>
+                    <v-text-field v-model="defaultRegistrationPassword" :rules="defaultRegistrationPasswordRules" :counter="50" label="Default Registration Password" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-select :items="EnableSSL" :rules="EnableSSLRules" label="Default Email Enable SSL" required></v-select>
+                    <v-text-field v-model="defaultEmailUserName" :rules="defaultEmailUserNameRules" :counter="50" label="Default Email User Name" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="DefaultSendgridApiKey" :rules="SendgridApiKeyRules" :counter="50" label="Default Sendgrid Api Key" required></v-text-field>
+                    <v-text-field v-model="defaultEmailPassword" :rules="defaultEmailPasswordRules" :counter="50" label="Default Email Password" required></v-text-field>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12" md="3">
+                    <v-text-field v-model="defaultEmailHost" :rules="defaultEmailHostRules" :counter="50" label="Default Email Host" required></v-text-field>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <v-text-field v-model="defaultEmailPort" :rules="defaultEmailPortRules" :counter="50" label="Default Email Port" required></v-text-field>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <v-select v-model="defaultEmailEnableSSL" :items="enableSSL" :rules="enableSSLRules" label="Default Email Enable SSL" required></v-select>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <v-text-field v-model="defaultSendgridApiKey" :rules="sendgridApiKeyRules" :counter="50" label="Default Sendgrid Api Key" required></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -85,59 +85,82 @@
     export default {
         data: () => ({
             valid: false,
-            siteId: 0,
-            name: "",
-            email: "",
-            address1: "",
-            address2: "",
-            city: "",
-            state: "",
-            zipCode: "",
-            EnableSSL: ["True", "False"],
-            phone: "",
-            fax: "",
-            imageId: "",
-            createdBy: 0,
-            createdTs: null,
-            changedBy: 0,
-            changedTs: null,
+            id: 0,
+            webMasterEmail: "",
+            webMasterPassword: "",
+            serverEmailUserName: "",
+            serverEmailPassword: "",
+            serverEmailHost: "",
+            serverEmailPort: "",
+            serverEmailEnableSSL: "",
+            enableSSL: ["True", "False"],
+            serverDefaultContactEmail: "",
+            serverSendgridApiKey: "",
+            defaultRegistrationPassword: "",
+            defaultEmailUserName: "",
+            defaultEmailPassword: "",
+            defaultEmailHost: "",
+            defaultEmailPort: "",
+            defaultEmailEnableSSL: "",
+            defaultSendgridApiKey: "",
             message: "",
             success: false,
             error: false,
-            nameRules: [
-                v => !!v || 'Name is required',
-                v => v.length <= 50 || 'Name must not be greater than 50 characters',
-            ],
-            address1Rules: [
-                v => !!v || 'Address1 is required',
-                v => v.length <= 50 || 'Name must not be greater than 50 characters',
-            ],
-            address2Rules: [
-                v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
-            ],
-            phoneRules: [
-                v => !!v || 'Phone is required',
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
-            ],
-            faxRules: [
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
-            ],
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
                 v => v.length <= 50 || 'E-mail must not be greater than 50 characters'
             ],
-            siteRules: [
+            webMasterPasswordRules: [
+                v => !!v || 'Name is required',
+                v => v.length <= 50 || 'Name must not be greater than 50 characters',
+            ],
+            serverEmailUserNameRules: [
+                v => !!v || 'Address1 is required',
+                v => v.length <= 50 || 'Name must not be greater than 50 characters',
+            ],
+            serverEmailPasswordRules: [
+                v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
+            ],
+            serverEmailHostRules: [
+                v => !!v || 'Phone is required',
+                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+            ],
+            serverEmailPortRules: [
+                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+            ],
+            enableSSLRules: [
+                v => !!v || 'E-mail is required',
+                v => /.+@.+/.test(v) || 'E-mail must be valid',
+                v => v.length <= 50 || 'E-mail must not be greater than 50 characters'
+            ],
+            serverDefaultContactEmailRules: [
                 v => !!v || 'Site type is required',
             ],
-            zipCodeRules: [
+            sendgridApiKeyRules: [
                 v => !!v || 'Zip code is required',
                 v => v.length <= 5 || 'Zip code must not be greater than 5 characters',
             ],
-            cityRules: [
+            defaultRegistrationPasswordRules: [
                 v => !!v || 'City is required',
                 v => v.length <= 50 || 'City must not be greater than 50 characters',
             ],
+            defaultEmailUserNameRules: [
+                v => !!v || 'City is required',
+                v => v.length <= 50 || 'City must not be greater than 50 characters',
+            ],
+            defaultEmailPasswordRules: [
+                v => !!v || 'City is required',
+                v => v.length <= 50 || 'City must not be greater than 50 characters',
+            ],
+            defaultEmailHostRules: [
+                v => !!v || 'City is required',
+                v => v.length <= 50 || 'City must not be greater than 50 characters',
+            ],
+            defaultEmailPortRules: [
+                v => !!v || 'City is required',
+                v => v.length <= 50 || 'City must not be greater than 50 characters',
+            ]
         }),
         methods: {
             validate() {
