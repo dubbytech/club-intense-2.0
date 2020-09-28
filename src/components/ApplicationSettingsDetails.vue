@@ -112,54 +112,56 @@
                 v => v.length <= 50 || 'E-mail must not be greater than 50 characters'
             ],
             webMasterPasswordRules: [
-                v => !!v || 'Name is required',
-                v => v.length <= 50 || 'Name must not be greater than 50 characters',
+                v => !!v || 'Webmaster Password is required',
+                v => v.length <= 50 || 'Webmaster Password must not be greater than 50 characters',
             ],
             serverEmailUserNameRules: [
-                v => !!v || 'Address1 is required',
-                v => v.length <= 50 || 'Name must not be greater than 50 characters',
+                v => !!v || 'Server Email UserName is required',
+                v => v.length <= 50 || 'Server Email UserName must not be greater than 50 characters',
             ],
             serverEmailPasswordRules: [
-                v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
+                v => !!v || 'Server Email Password is required',
+                v => v.length <= 50 || 'Server Email Password must not be greater than 50 characters',
             ],
             serverEmailHostRules: [
-                v => !!v || 'Phone is required',
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+                v => !!v || 'Server Email Host is required',
+                v => v.length <= 50 || 'Server Email Host must not be greater than 50 characters',
             ],
             serverEmailPortRules: [
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+                v => !!v || 'Server Email Port is required',
+                v => v.length <= 50 || 'Server Email Port must not be greater than 50 characters',
             ],
             enableSSLRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+/.test(v) || 'E-mail must be valid',
-                v => v.length <= 50 || 'E-mail must not be greater than 50 characters'
+                v => !!v || 'Enable SSL is required'
             ],
             serverDefaultContactEmailRules: [
-                v => !!v || 'Site type is required',
+                v => !!v || 'Server Default Contact Email is required',
+                v => /.+@.+/.test(v) || 'Server Default Contact Email must be valid',
+                v => v.length <= 50 || 'Server Default Contact Email must not be greater than 50 characters'
             ],
             sendgridApiKeyRules: [
-                v => !!v || 'Zip code is required',
-                v => v.length <= 5 || 'Zip code must not be greater than 5 characters',
+                v => !!v || 'Server Sendgrid Api Key is required',
+                v => v.length <= 50 || 'Server Sendgrid Api Key must not be greater than 50 characters',
             ],
             defaultRegistrationPasswordRules: [
-                v => !!v || 'City is required',
-                v => v.length <= 50 || 'City must not be greater than 50 characters',
+                v => !!v || 'Default Registration Password is required',
+                v => v.length <= 50 || 'Default Registration Password must not be greater than 50 characters',
             ],
             defaultEmailUserNameRules: [
-                v => !!v || 'City is required',
-                v => v.length <= 50 || 'City must not be greater than 50 characters',
+                v => !!v || 'Default Email User Name is required',
+                v => v.length <= 50 || 'Default Email User Name must not be greater than 50 characters',
             ],
             defaultEmailPasswordRules: [
-                v => !!v || 'City is required',
-                v => v.length <= 50 || 'City must not be greater than 50 characters',
+                v => !!v || 'Default Email Password is required',
+                v => v.length <= 50 || 'Default Email Password must not be greater than 50 characters',
             ],
             defaultEmailHostRules: [
-                v => !!v || 'City is required',
-                v => v.length <= 50 || 'City must not be greater than 50 characters',
+                v => !!v || 'Default Email Host is required',
+                v => v.length <= 50 || 'Default Email Host must not be greater than 50 characters',
             ],
             defaultEmailPortRules: [
-                v => !!v || 'City is required',
-                v => v.length <= 50 || 'City must not be greater than 50 characters',
+                v => !!v || 'Default Email Port is required',
+                v => v.length <= 50 || 'Default Email Port must not be greater than 50 characters',
             ]
         }),
         methods: {
