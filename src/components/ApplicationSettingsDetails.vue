@@ -34,7 +34,7 @@
                     <v-text-field v-model="serverEmailHost" :rules="serverEmailHostRules" :counter="50" label="Server Email Host" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="serverEmailPort" :rules="serverEmailPortRules" :counter="50" label="Server Email Port" required></v-text-field>
+                    <v-text-field v-model="serverEmailPort" :rules="serverEmailPortRules" :counter="5" label="Server Email Port" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
                     <v-select v-model="serverEmailEnableSSL" :items="enableSSL" :rules="enableSSLRules" label="Server Email Enable SSL" required></v-select>
@@ -45,7 +45,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="serverSendgridApiKey" :rules="sendgridApiKeyRules" :counter="50" label="Server Sendgrid Api Key" required></v-text-field>
+                    <v-text-field v-model="serverSendgridApiKey" :rules="sendgridApiKeyRules" :counter="100" label="Server Sendgrid Api Key" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
                     <v-text-field v-model="defaultRegistrationPassword" :rules="defaultRegistrationPasswordRules" :counter="50" label="Default Registration Password" required></v-text-field>
@@ -62,13 +62,13 @@
                     <v-text-field v-model="defaultEmailHost" :rules="defaultEmailHostRules" :counter="50" label="Default Email Host" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="defaultEmailPort" :rules="defaultEmailPortRules" :counter="50" label="Default Email Port" required></v-text-field>
+                    <v-text-field v-model="defaultEmailPort" :rules="defaultEmailPortRules" :counter="5" label="Default Email Port" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="3">
                     <v-select v-model="defaultEmailEnableSSL" :items="enableSSL" :rules="enableSSLRules" label="Default Email Enable SSL" required></v-select>
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-text-field v-model="defaultSendgridApiKey" :rules="sendgridApiKeyRules" :counter="50" label="Default Sendgrid Api Key" required></v-text-field>
+                    <v-text-field v-model="defaultSendgridApiKey" :rules="sendgridApiKeyRules" :counter="100" label="Default Sendgrid Api Key" required></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -82,6 +82,8 @@
 </template>
 
 <script>
+    import { HTTP } from "../http-common.js";
+
     export default {
         data: () => ({
             valid: false,
@@ -129,7 +131,7 @@
             ],
             serverEmailPortRules: [
                 v => !!v || 'Server Email Port is required',
-                v => v.length <= 50 || 'Server Email Port must not be greater than 50 characters',
+                v => v.length <= 5 || 'Server Email Port must not be greater than 50 characters',
             ],
             enableSSLRules: [
                 v => !!v || 'Enable SSL is required'
@@ -141,7 +143,7 @@
             ],
             sendgridApiKeyRules: [
                 v => !!v || 'Server Sendgrid Api Key is required',
-                v => v.length <= 50 || 'Server Sendgrid Api Key must not be greater than 50 characters',
+                v => v.length <= 100 || 'Server Sendgrid Api Key must not be greater than 50 characters',
             ],
             defaultRegistrationPasswordRules: [
                 v => !!v || 'Default Registration Password is required',
@@ -161,10 +163,41 @@
             ],
             defaultEmailPortRules: [
                 v => !!v || 'Default Email Port is required',
-                v => v.length <= 50 || 'Default Email Port must not be greater than 50 characters',
+                v => v.length <= 5 || 'Default Email Port must not be greater than 50 characters',
             ]
         }),
+        created() {
+            this.getAppSettings();
+        },
         methods: {
+            getAppSettings() {
+                HTTP.get('/api/appSetting/')
+                    .then(response => this.populateAppSettings(response.data.results.data[0]))
+                    .catch(() => this.getFailed())
+            },
+            populateAppSettings(data) {
+                //console.log(data);
+                this.id = data.id;
+                this.webMasterEmail = data.webMasterEmail;
+                this.webMasterPassword = data.webMasterPassword;
+                this.serverEmailUserName = data.serverEmailUserName;
+                this.serverEmailPassword = data.serverEmailPassword;
+                this.serverEmailHost = data.serverEmailHost;
+                this.serverEmailPort = data.serverEmailPort;
+                this.serverEmailEnableSSL = data.serverEmailEnableSsl;
+                this.serverDefaultContactEmail = data.serverDefaultContactEmail;
+                this.serverSendgridApiKey = data.serverSendgridApiKey;
+                this.defaultRegistrationPassword = data.defaultRegistrationPassword;
+                this.defaultEmailUserName = data.defaultEmailUserName;
+                this.defaultEmailPassword = data.defaultEmailPassword;
+                this.defaultEmailHost = data.defaultEmailHost;
+                this.defaultEmailPort = data.defaultEmailPort;
+                this.defaultEmailEnableSSL = data.defaultEmailEnableSsl;
+                this.defaultSendgridApiKey = data.defaultSendgridApiKey;
+            },
+            getFailed() {
+                console.log("get failed");
+            },
             validate() {
                 this.$refs.form.validate();
             },
@@ -176,9 +209,36 @@
                 this.$refs.form.resetValidation()
             },
             submitAppSettings() {
-                alert("submit");
+                //alert("submit");
+                HTTP.post('/api/appSetting/', {
+                    id: 0,
+                    webMasterEmail: this.webMasterEmail,
+                    webMasterPassword: this.webMasterPassword,
+                    serverEmailUserName: this.serverEmailUserName,
+                    serverEmailPassword: this.serverEmailPassword,
+                    serverEmailHost: this.serverEmailHost,
+                    serverEmailPort: this.serverEmailPort,
+                    serverEmailEnableSSL: this.serverEmailEnableSSL,
+                    serverDefaultContactEmail: this.serverDefaultContactEmail,
+                    serverSendgridApiKey: this.serverSendgridApiKey,
+                    defaultRegistrationPassword: this.defaultRegistrationPassword,
+                    defaultEmailUserName: this.defaultEmailUserName,
+                    defaultEmailPassword: this.defaultEmailPassword,
+                    defaultEmailHost: this.defaultEmailHost,
+                    defaultEmailPort: this.defaultEmailPort,
+                    defaultEmailEnableSSL: this.defaultEmailEnableSSL,
+                    defaultSendgridApiKey: this.defaultSendgridApiKey
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
+            },
+            saveSuccessful() {
                 this.success = true;
                 this.error = false;
+            },
+            saveFailed() {
+                this.success = false;
+                this.error = true;
             },
             deleteAppSettings() {
                 alert("delete");
