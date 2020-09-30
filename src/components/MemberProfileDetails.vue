@@ -17,7 +17,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="6">
-                    <v-text-field v-model="titleDegree" :rules="titleRules" label="Title" required></v-text-field>
+                    <v-text-field v-model="titleDegree" :rules="titleRules" :counter="50" label="Title" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="6">
                     <v-select :items="genderItems" label="Gender" required></v-select>
@@ -25,13 +25,13 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="firstname" :rules="nameRules" :counter="50" label="First name" required></v-text-field>
+                    <v-text-field v-model="firstName" :rules="nameRules" :counter="50" label="First name" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="mi" :rules="miRules" :counter="2" label="MI" required></v-text-field>
+                    <v-text-field v-model="mi" :rules="miRules" :counter="2" label="MI"></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="lastname" :rules="nameRules" :counter="50" label="Last name" required></v-text-field>
+                    <v-text-field v-model="lastName" :rules="nameRules" :counter="50" label="Last name" required></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -39,10 +39,10 @@
                     <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="address1" :rules="addressRules" :counter="50" label="Address1" required></v-text-field>
+                    <v-text-field v-model="address1" :rules="addressRules1" :counter="50" label="Address1" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="address2" :rules="addressRules" :counter="50" label="Address2" required></v-text-field>
+                    <v-text-field v-model="address2" :rules="addressRules2" :counter="50" label="Address2"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -50,7 +50,7 @@
                     <v-text-field v-model="city" :rules="cityRules" :counter="50" label="City" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="state" :rules="stateRules" :counter="50" label="State" required></v-text-field>
+                    <v-text-field v-model="state" :rules="stateRules" :counter="2" label="State" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
                     <v-text-field v-model="zipCode" :rules="zipCodeRules" :counter="5" label="Zip code" required></v-text-field>
@@ -74,7 +74,7 @@
                     </v-menu>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="cellPhone" :rules="cellPhoneRules" :counter="10" label="Cell phone" required></v-text-field>
+                    <v-text-field v-model="cellPhone" :rules="cellPhoneRules" :counter="11" label="Cell phone" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="4">
                     <v-select :items="hometowns" label="Home town" item-text="Name" item-value="id" required></v-select>
@@ -133,7 +133,33 @@
             ],
             zipCodeRules: [
                 v => !!v || 'Zip code is required',
-                v => v.length <= 5 || 'Zip code must not be greater than 10 characters',
+                v => v.length <= 5 || 'Zip code must not be greater than 5 characters',
+            ],
+            titleRules: [
+                v => !!v || 'Title is required',
+                v => v.length <= 50 || 'Title must not be greater than 50 characters',
+            ],
+            miRules: [
+                v => v.length <= 2 || 'Title must not be greater than 2 characters',
+            ],
+            addressRules1: [
+                v => !!v || 'Address1 is required',
+                v => v.length <= 50 || 'Address1 must not be greater than 50 characters',
+            ],
+            addressRules2: [
+                v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
+            ],
+            cityRules: [
+                v => !!v || 'City is required',
+                v => v.length <= 50 || 'City must not be greater than 50 characters',
+            ],
+            stateRules: [
+                v => !!v || 'State is required',
+                v => v.length <= 2 || 'State must not be greater than 2 characters',
+            ],
+            cellPhoneRules: [
+                v => !!v || 'Cell Phone is required',
+                v => v.length <= 11 || 'Cell Phone must not be greater than 11 characters',
             ],
             date: new Date().toISOString().substr(0, 10),
             menu1: false,
