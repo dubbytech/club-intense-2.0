@@ -101,14 +101,14 @@
                     .catch(() => this.getFailed())
             },
             populateLandingPages(data) {
-                console.log(data);
+                //console.log(data);
                 this.landingPages = data;
             },
             emptyEditor(landingPage) {
                 landingPage.pageContent = "";
             },
             submitEditor(landingPage) {
-                alert(landingPage.pageContent);
+                //alert(landingPage.pageContent);
                 HTTP.post('/api/landingPage/', {
                     id: landingPage.id,
                     title: landingPage.title,
@@ -117,6 +117,9 @@
                 })
                     .then(() => this.saveSuccessful())
                     .catch(() => this.saveFailed())
+            },
+            getFailed() {
+
             },
             saveSuccessful() {
                 this.success = true;

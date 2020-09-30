@@ -58,7 +58,6 @@
         data() {
             return {
                 tab: null
-
             }
         },
     }

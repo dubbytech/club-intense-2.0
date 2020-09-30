@@ -12,6 +12,7 @@ Vue.config.productionTip = false;
 Vue.use(CKEditor);
 Vue.use(HTTP);
 Vue.use(VueSessionStorage);
+
 //Vue.use(qs);
 
 new Vue({

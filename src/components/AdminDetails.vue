@@ -18,6 +18,11 @@
             <v-row justify="space-between">
                 <v-col cols="12" md="5">
                     <div>Members as Admin</div>
+                    <v-row v-if="admins.length==0">
+                        <v-col cols="12" class="d-flex">
+                            <strong><span>No member assigned as Admin yet.</span></strong>
+                        </v-col>
+                    </v-row>
                     <v-row dense v-for="admin in admins" :key="admin.id">
                         <v-col cols="12" md="8">
                             <v-card class="pa-2" outlined tile>{{admin.userName}}</v-card>
@@ -45,18 +50,14 @@
     </v-form>
 </template>
 <script>
+    import { HTTP } from "../http-common.js";
+
     export default {
         data: () => ({
             valid: false,
             inset: false,
-            admins: [
-                { id: 1, userId: 3801, userName: "Stanley Ejikeme" },
-                { id: 2, userId: 6322, userName: "Chinwe Ejikeme" }
-            ],
-            members: [
-                { id: 3801, firstName: "Stanley", mi: "U", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801", fullName: "Mr. Stanley U. Ejikeme" },
-                { id: 6322, firstName: "Chinwe", mi: "A", lastName: "Ejikeme", titleDegree: "Dr.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322", fullName: "Dr. Chinwe A. Ejikeme" }
-            ],
+            admins: [],
+            members: [],
             selectedUserId: "",
             message: "",
             success: false,
@@ -65,7 +66,27 @@
                 v => !!v || 'Member is required'
             ]
         }),
+        created() {
+            this.getMembers();
+            this.getAdmins();
+        },
         methods: {
+            getAdmins() {
+                HTTP.get('/api/Admin/')
+                    .then(response => this.populateAdmin(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            getMembers() {
+                HTTP.get('/api/Member/')
+                    .then(response => this.populateMember(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateMember(data) {
+                this.members = data;
+            },
+            populateAdmin(data) {
+                this.admins = data;
+            },
             validate() {
                 this.$refs.form.validate();
             },
@@ -77,16 +98,32 @@
                 this.$refs.form.resetValidation()
             },
             asignMemberToAdmin() {
-                alert("asign admin: " + this.selectedUserId);
-                this.success = true;
-                this.error = false;
-                this.valid = false;
+                //alert("asign admin: " + this.selectedUserId);
+                HTTP.post('/api/Admin/', {
+                    id: 0,
+                    userId: this.selectedUserId
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
             },
             deleteMemberFromAdmin(admin) {
                 alert("delete member admin table: " + admin.userId);
                 this.success = true;
                 this.error = false;
                 this.valid = false
+            },
+            getFailed() {
+
+            },
+            saveSuccessful() {
+                this.success = true;
+                this.error = false;
+                this.getAdmins();
+            },
+            saveFailed() {
+                //alert("");
+                this.success = false;
+                this.error = true;
             }
         },
     }
