@@ -1,9 +1,9 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import vue from "vue";
+import vuex from "vuex";
 
-Vue.use(Vuex);
+vue.use(vuex);
 
-export const store = new Vuex.Store({
+export const store = new vuex.Store({
     state: {
         authenticated: false
     },

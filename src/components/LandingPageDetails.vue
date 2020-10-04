@@ -15,7 +15,14 @@
                     </v-alert>
                 </v-col>
             </v-row>
-            <v-row>
+            <v-row v-if="landingPages.length==0">
+                <v-col cols="12">
+                    <v-alert dense type="error">
+                        No landing page found.
+                    </v-alert>
+                </v-col>
+            </v-row>
+            <v-row v-else>
                 <template>
                     <v-card>
                         <v-toolbar flat color="primary" dark>
@@ -113,7 +120,7 @@
                     id: landingPage.id,
                     title: landingPage.title,
                     pageContent: landingPage.pageContent,
-                    isActive:landingPage.isActive
+                    isActive: landingPage.isActive
                 })
                     .then(() => this.saveSuccessful())
                     .catch(() => this.saveFailed())
