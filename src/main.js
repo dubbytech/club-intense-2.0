@@ -1,17 +1,17 @@
 import Vue from "vue";
-import App from "./App.vue";
+import app from "./App.vue";
 import router from "./router";
 import { store } from "./store/store";
 import vuetify from "./plugins/vuetify";
-import CKEditor from "@ckeditor/ckeditor5-vue";
+import ckEditor from "@ckeditor/ckeditor5-vue";
 import { HTTP } from "./http-common.js";
-import VueSessionStorage from "vue-sessionstorage";
+import vueSessionStorage from "vue-sessionstorage";
 //import qs from "qs";
 
 Vue.config.productionTip = false;
-Vue.use(CKEditor);
+Vue.use(ckEditor);
 Vue.use(HTTP);
-Vue.use(VueSessionStorage);
+Vue.use(vueSessionStorage);
 
 //Vue.use(qs);
 
@@ -19,5 +19,5 @@ new Vue({
     router,
     store,
     vuetify,
-    render: h => h(App)
+    render: h => h(app)
 }).$mount("#app");
