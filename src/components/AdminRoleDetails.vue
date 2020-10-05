@@ -98,13 +98,13 @@
                 //{ id: 8, name: "Public Relations Officer" }
             ],
             memberRoles: [
-                { id: 1, userId: 7493, role: "Treasurer" },
-                { id: 2, userId: 7493, role: "Publicity Secretary" },
+                //{ id: 1, userId: 7493, role: "Treasurer" },
+                //{ id: 2, userId: 7493, role: "Publicity Secretary" },
             ],
             admins: [],
             selectedRoleId: "",
             selectedMemberId: 0,
-            selectedAdminId:0,
+            selectedAdminId: 0,
             createdBy: 0,
             createdTs: null,
             changedBy: 0,
@@ -121,6 +121,8 @@
             ]
         }),
         created() {
+            this.getRoles();
+            this.getMemberAndRoles();
             this.getAdmins();
         },
         methods: {
@@ -132,18 +134,14 @@
             populateAdmin(data) {
                 this.admins = data;
             },
-            getFailed() {
-
+            getRoles() {
+                //get roles
             },
-            validate() {
-                this.$refs.form.validate();
+            populateRoles() {
+                //populate riles
             },
-            reset() {
-                this.$refs.form.reset();
-                this.valid = false;
-            },
-            resetValidation() {
-                this.$refs.form.resetValidation()
+            getMemberAndRoles() {
+                //get member and roles
             },
             asignMemberToRole() {
                 alert("asign role: " + this.selectedRoleId + " assign member: " + this.selectedMemberId);
@@ -167,7 +165,30 @@
                 this.success = true;
                 this.error = false;
                 this.valid = false
-            }
+            },
+            getFailed() {
+
+            },
+            saveSuccessful() {
+                this.success = true;
+                this.error = false;
+                this.getAdmins();
+            },
+            saveFailed() {
+                //alert("");
+                this.success = false;
+                this.error = true;
+            },
+            validate() {
+                this.$refs.form.validate();
+            },
+            reset() {
+                this.$refs.form.reset();
+                this.valid = false;
+            },
+            resetValidation() {
+                this.$refs.form.resetValidation()
+            },
         },
     }
 </script>
