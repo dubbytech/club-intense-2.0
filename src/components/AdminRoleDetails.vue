@@ -66,7 +66,7 @@
                             <v-select v-model="selectedRoleId" :items="roles" label="Role" item-text="name" item-value="id" required></v-select>
                         </v-col>
                         <v-col class="d-flex" cols="12" md="6">
-                            <v-select v-model="selectedMemberId" :items="members" label="Member" item-text="fullName" item-value="id" required></v-select>
+                            <v-select v-model="selectedAdminId" :items="admins" label="Member" :rules="adminRules" item-text="userName" item-value="id" required></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -80,31 +80,31 @@
     </v-form>
 </template>
 <script>
+    import { HTTP } from "../http-common.js";
+
     export default {
         data: () => ({
             valid: false,
             inset: false,
             roleName: "",
             roles: [
-                { id: 1, name: "Webmaster" },
-                { id: 2, name: "Treasurer" },
-                { id: 3, name: "Vice President" },
-                { id: 4, name: "Financial Secretary" },
-                { id: 5, name: "Publicity Secretary" },
-                { id: 6, name: "President" },
-                { id: 7, name: "Membership Director" },
-                { id: 8, name: "Public Relations Officer" }
+                //{ id: 1, name: "Webmaster" },
+                //{ id: 2, name: "Treasurer" },
+                //{ id: 3, name: "Vice President" },
+                //{ id: 4, name: "Financial Secretary" },
+                //{ id: 5, name: "Publicity Secretary" },
+                //{ id: 6, name: "President" },
+                //{ id: 7, name: "Membership Director" },
+                //{ id: 8, name: "Public Relations Officer" }
             ],
             memberRoles: [
                 { id: 1, userId: 7493, role: "Treasurer" },
                 { id: 2, userId: 7493, role: "Publicity Secretary" },
             ],
-            members: [
-                { id: 1, firstName: "Stanley", mi: "U", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801", fullName: "Mr. Stanley U. Ejikeme" },
-                { id: 2, firstName: "Chinwe", mi: "A", lastName: "Ejikeme", titleDegree: "Dr.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322", fullName: "Dr. Chinwe A. Ejikeme" }
-            ],
+            admins: [],
             selectedRoleId: "",
             selectedMemberId: 0,
+            selectedAdminId:0,
             createdBy: 0,
             createdTs: null,
             changedBy: 0,
@@ -115,9 +115,26 @@
             roleRules: [
                 v => !!v || 'Role is required',
                 v => v.length <= 10 || 'Name must be less than 10 characters',
+            ],
+            adminRules: [
+                v => !!v || 'Member is required'
             ]
         }),
+        created() {
+            this.getAdmins();
+        },
         methods: {
+            getAdmins() {
+                HTTP.get('/api/Admin/')
+                    .then(response => this.populateAdmin(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateAdmin(data) {
+                this.admins = data;
+            },
+            getFailed() {
+
+            },
             validate() {
                 this.$refs.form.validate();
             },
