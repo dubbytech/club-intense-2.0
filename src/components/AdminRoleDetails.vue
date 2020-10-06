@@ -87,16 +87,7 @@
             valid: false,
             inset: false,
             roleName: "",
-            roles: [
-                //{ id: 1, name: "Webmaster" },
-                //{ id: 2, name: "Treasurer" },
-                //{ id: 3, name: "Vice President" },
-                //{ id: 4, name: "Financial Secretary" },
-                //{ id: 5, name: "Publicity Secretary" },
-                //{ id: 6, name: "President" },
-                //{ id: 7, name: "Membership Director" },
-                //{ id: 8, name: "Public Relations Officer" }
-            ],
+            roles: [],
             memberRoles: [
                 //{ id: 1, userId: 7493, role: "Treasurer" },
                 //{ id: 2, userId: 7493, role: "Publicity Secretary" },
@@ -114,7 +105,7 @@
             error: false,
             roleRules: [
                 v => !!v || 'Role is required',
-                v => v.length <= 10 || 'Name must be less than 10 characters',
+                v => v.length <= 50 || 'Name must be less than 50 characters',
             ],
             adminRules: [
                 v => !!v || 'Member is required'
@@ -135,10 +126,12 @@
                 this.admins = data;
             },
             getRoles() {
-                //get roles
+                HTTP.get('/api/Role/')
+                    .then(response => this.populateRoles(response.data.results.data))
+                    .catch(() => this.getFailed())
             },
-            populateRoles() {
-                //populate riles
+            populateRoles(data) {
+                this.roles = data;
             },
             getMemberAndRoles() {
                 //get member and roles
@@ -151,14 +144,19 @@
             },
             createRole() {
                 alert("added: " + this.roleName);
-                this.error = false;
-                this.success = true;
-                this.valid = false;
+                HTTP.post('/api/Role/', {
+                    id: this.roleName,
+                    name: this.roleName,
+                    normalizedName: "",
+                    concurrencyStamp: ""
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
             },
             deleteRole(id, name) {
-                alert("delete: " + id + " name: " + name);
-                this.error = true;
-                this.success = false;
+                HTTP.delete('/api/Role/'+id)
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
             },
             deleteMemberRole(id) {
                 alert("delete member role table: " + id);
@@ -172,10 +170,9 @@
             saveSuccessful() {
                 this.success = true;
                 this.error = false;
-                this.getAdmins();
+                this.getRoles();
             },
             saveFailed() {
-                //alert("");
                 this.success = false;
                 this.error = true;
             },
