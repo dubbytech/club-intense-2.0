@@ -23,7 +23,7 @@
                             <v-card class="pa-2" outlined tile>{{role.name}}</v-card>
                         </v-col>
                         <v-col cols="6" md="4">
-                            <v-btn class="ma-2" tile outlined color="error" @click="deleteRole(role.id,role.name)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                            <v-btn class="ma-2" tile outlined color="error" @click="deleteRole(role.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -153,7 +153,7 @@
                     .then(() => this.saveSuccessful())
                     .catch(() => this.saveFailed())
             },
-            deleteRole(id, name) {
+            deleteRole(id) {
                 HTTP.delete('/api/Role/'+id)
                     .then(() => this.saveSuccessful())
                     .catch(() => this.saveFailed())
