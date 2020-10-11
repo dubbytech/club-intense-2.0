@@ -47,15 +47,15 @@
             <v-row justify="space-between">
                 <v-col cols="12" md="5">
                     <div>Members and their roles</div>
-                    <v-row dense v-for="memberRole in memberRoles" :key="memberRole.id">
+                    <v-row dense v-for="(memberRole,index) in memberRoles" :key="index">
                         <v-col cols="12" md="4">
-                            <v-card class="pa-2" outlined tile>{{memberRole.userId}}</v-card>
+                            <v-card class="pa-2" outlined tile>{{memberRole.roleName}}</v-card>
                         </v-col>
                         <v-col cols="12" md="4">
-                            <v-card class="pa-2" outlined tile>{{memberRole.role}}</v-card>
+                            <v-card class="pa-2" outlined tile>{{memberRole.userName}}</v-card>
                         </v-col>
                         <v-col cols="6" md="4">
-                            <v-btn class="ma-2" tile outlined color="error" @click="deleteMemberRole(memberRole.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                            <v-btn class="ma-2" tile outlined color="error" @click="deleteMemberRole(memberRole.userId,memberRole.roleId)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -88,10 +88,7 @@
             inset: false,
             roleName: "",
             roles: [],
-            memberRoles: [
-                //{ id: 1, userId: 7493, role: "Treasurer" },
-                //{ id: 2, userId: 7493, role: "Publicity Secretary" },
-            ],
+            memberRoles: [],
             admins: [],
             selectedRoleId: "",
             selectedMemberId: 0,
@@ -134,7 +131,12 @@
                 this.roles = data;
             },
             getMemberAndRoles() {
-                //get member and roles
+                HTTP.get('/api/MemberRole/')
+                    .then(response => this.populateMemberRole(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateMemberRole(data) {
+                this.memberRoles = data;
             },
             asignMemberToRole() {
                 alert("asign role: " + this.selectedRoleId + " assign member: " + this.selectedMemberId);
@@ -154,7 +156,7 @@
                     .catch(() => this.saveFailed())
             },
             deleteRole(id) {
-                HTTP.delete('/api/Role/'+id)
+                HTTP.delete('/api/Role/' + id)
                     .then(() => this.saveSuccessful())
                     .catch(() => this.saveFailed())
             },
