@@ -20,7 +20,7 @@
                     <div>Select member to view payments for that member</div>
                     <v-row>
                         <v-col class="d-flex" cols="12">
-                            <v-select v-model="MemberIdPaymentView" :items="members" label="Member" item-text="fullName" item-value="id" required></v-select>
+                            <v-select v-model="memberIdView" :items="members" label="Member" item-text="fullName" item-value="id" required @change="getMemberPayments"></v-select>
                         </v-col>
                     </v-row>
                     <v-row dense v-for="memberPayment in memberPayments" :key="memberPayment.id">
@@ -70,7 +70,7 @@
                     <div>Select member to add payment for that member</div>
                     <v-row>
                         <v-col class="d-flex" cols="12">
-                            <v-select v-model="MemberIdPaymentAdd" :items="members" label="Member" item-text="fullName" item-value="id" required></v-select>
+                            <v-select v-model="memberIdAdd" :items="members" label="Member" item-text="fullName" item-value="id" required></v-select>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -117,18 +117,14 @@
     </v-form>
 </template>
 <script>
+    import { HTTP } from "../http-common.js";
+
     export default {
         data: vm => ({
             valid: false,
             inset: false,
-            memberPayments: [
-                { id: 1, memberId: 7493, paymentForId: 1, paymentMethod: "Cash", paymentAmount: "200.00", fiscalYear: "2020", dateOfPayment: "10/10/2020", notes: "This is a test note", CreatedBy: 7493, CreatedTs: "10/12/2020" },
-                { id: 2, memberId: 7493, paymentForId: 2, paymentMethod: "Check", paymentAmount: "50.00", fiscalYear: "2019", dateOfPayment: "10/10/2019", notes: "This is a test note2", CreatedBy: 7493, CreatedTs: "10/12/2020" }
-            ],
-            members: [
-                { id: 1, firstName: "Stanley", mi: "U", lastName: "Ejikeme", titleDegree: "Mr.", email: "vastgroupusa@gmail.com", homeTownId: 1, cellPhone: "404-917-3801", fullName: "Mr. Stanley U. Ejikeme" },
-                { id: 2, firstName: "Chinwe", mi: "A", lastName: "Ejikeme", titleDegree: "Dr.", email: "chyccidili@gmail.com", homeTownId: 2, cellPhone: "404-917-6322", fullName: "Dr. Chinwe A. Ejikeme" }
-            ],
+            memberPayments: [],
+            members: [],
             paymentFor: [
                 { id: 1, paymentName: "Registration Fee" },
                 { id: 2, paymentName: "Onyeama Contribution" },
@@ -157,9 +153,10 @@
             paymentDate: vm.formatDate(new Date().toISOString().substr(0, 10)),
             notes: "",
             selectedRoleId: "",
-            MemberIdPaymentView: 0,
-            MemberIdPaymentAdd: 0,
+            memberIdView: "",
+            memberIdAdd: "",
             paymentForId: 0,
+            paymentMethodId: 0,
             fiscalYearId: 0,
             paymentAmount: 0,
             paymentAmountRules: [
@@ -177,10 +174,13 @@
             success: false,
             error: false,
         }),
+        created() {
+            this.getMembers();
+        },
         computed: {
             computedDateFormatted() {
-                return this.formatDate(this.date)
-            },
+                return this.formatDate(this.date);
+            }
         },
         watch: {
             date() {
@@ -188,6 +188,36 @@
             },
         },
         methods: {
+            getMembers() {
+                HTTP.get('/api/Member/')
+                    .then(response => this.populateMember(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateMember(data) {
+                this.members = data;
+            },
+            getMemberPayments() {
+                this.memberPayments = null;
+                HTTP.get('/api/MemberPayment/' + this.memberIdView)
+                    .then(response => this.populateMemberPayments(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateMemberPayments(data) {
+                this.memberPayments = data;
+                console.log(this.memberPayments);
+            },
+            getFailed() {
+
+            },
+            saveSuccessful() {
+                this.success = true;
+                this.error = false;
+                this.getRoles();
+            },
+            saveFailed() {
+                this.success = false;
+                this.error = true;
+            },
             validate() {
                 this.$refs.form.validate();
             },
@@ -200,8 +230,18 @@
             },
             addPayment() {
                 alert("payment added: " + this.notes);
-                this.success = true;
-                this.error = false;
+                HTTP.post('/api/MemberPayment/', {
+                    id: 0,
+                    memberId: this.memberIdAdd,
+                    paymentForId: this.paymentForId,
+                    paymentMethod: this.paymentMethodId,
+                    paymentAmount: this.paymentAmount,
+                    fiscalYear: this.fiscalYearId,
+                    dateOfPayment: this.menu1,
+                    notes: this.notes
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
             },
             deleteMemberPayment(id) {
                 alert("deleted: " + id);
