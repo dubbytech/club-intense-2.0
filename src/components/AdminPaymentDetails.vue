@@ -30,7 +30,7 @@
                         </v-col>
                         <v-col cols="12" md="1">
                             Payment for:
-                            <v-card class="pa-2" outlined tile>{{memberPayment.paymentForId}}</v-card>
+                            <v-card class="pa-2" outlined tile>{{memberPayment.paymentFor}}</v-card>
                         </v-col>
                         <v-col cols="12" md="1">
                             Payment amount:
@@ -77,13 +77,13 @@
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="2">
-                    <v-select v-model="paymentForId" :items="paymentFor" label="Payment for" item-text="paymentName" item-value="id" required></v-select>
+                    <v-select v-model="selectedPaymentFor" :items="paymentFor" label="Payment for" item-text="paymentName" item-value="paymentName" required></v-select>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="2">
-                    <v-select v-model="paymentMethodId" :items="paymentMethods" label="Payment method" item-text="methodName" item-value="id" required></v-select>
+                    <v-select v-model="selectedPaymentMethod" :items="paymentMethod" label="Payment method" item-text="methodName" item-value="methodName" required></v-select>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="1">
-                    <v-select v-model="fiscalYearId" :items="fiscalYears" label="Fiscal year" item-text="year" item-value="id" required></v-select>
+                    <v-select v-model="fiscalYear" :items="fiscalYears" label="Fiscal year" item-text="year" item-value="year" required></v-select>
                 </v-col>
                 <v-col cols="12" md="2">
                     <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y max-width="290px" min-width="290px">
@@ -102,7 +102,7 @@
                     </v-menu>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="1">
-                    <v-text-field v-model="paymentAmount" :rules="paymentAmountRules" :counter="10" label="Payment Amount" required></v-text-field>
+                    <v-text-field v-model="paymentAmount" :rules="paymentAmountRules" label="Payment Amount" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="4">
                     <v-textarea clearable row-height="10" name="input-7-1" filled label="Notes" auto-grow v-model="notes"></v-textarea>
@@ -136,7 +136,7 @@
                 { id: 8, paymentName: "Men Uniform" },
                 { id: 9, paymentName: "Picnic" }
             ],
-            paymentMethods: [
+            paymentMethod: [
                 { id: 1, methodName: "Cash" },
                 { id: 2, methodName: "Check" },
                 { id: 3, methodName: "Money Order" },
@@ -155,13 +155,12 @@
             selectedRoleId: "",
             memberIdView: "",
             memberIdAdd: "",
-            paymentForId: 0,
-            paymentMethodId: 0,
-            fiscalYearId: 0,
-            paymentAmount: 0,
+            selectedPaymentFor:"",
+            selectedPaymentMethod: "",
+            fiscalYear: "",
+            paymentAmount: 0.00,
             paymentAmountRules: [
-                v => !!v || 'Payment Amount is required',
-                v => v.length <= 10 || 'Payment Amount must be less than 10 characters',
+                v => !!v || 'Payment Amount is required'
             ],
             date: new Date().toISOString().substr(0, 10),
             menu1: false,
@@ -212,7 +211,7 @@
             saveSuccessful() {
                 this.success = true;
                 this.error = false;
-                this.getRoles();
+                //this.getRoles();
             },
             saveFailed() {
                 this.success = false;
@@ -229,15 +228,15 @@
                 this.$refs.form.resetValidation()
             },
             addPayment() {
-                alert("payment added: " + this.notes);
+                alert("payment added: " + this.date);
                 HTTP.post('/api/MemberPayment/', {
                     id: 0,
                     memberId: this.memberIdAdd,
-                    paymentForId: this.paymentForId,
-                    paymentMethod: this.paymentMethodId,
-                    paymentAmount: this.paymentAmount,
-                    fiscalYear: this.fiscalYearId,
-                    dateOfPayment: this.menu1,
+                    paymentFor: this.selectedPaymentFor,
+                    paymentMethod: this.selectedPaymentMethod,
+                    paymentAmount: parseFloat(this.paymentAmount),
+                    fiscalYear: this.fiscalYear.toString(),
+                    dateOfPayment: this.date,
                     notes: this.notes
                 })
                     .then(() => this.saveSuccessful())
