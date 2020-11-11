@@ -8,6 +8,7 @@
             <v-tab>Application settings</v-tab>
             <v-tab>Landing Pages</v-tab>
             <v-tab>Manage Admins</v-tab>
+            <v-tab>Manage Payment For</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
@@ -38,6 +39,13 @@
                     </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        <payment-for-details></payment-for-details>
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs-items>
     </v-card>
 </template>
@@ -47,13 +55,15 @@
     import ApplicationSettingsDetails from "@/components/ApplicationSettingsDetails";
     import LandingPageDetails from "@/components/LandingPageDetails";
     import AdminDetails from "@/components/AdminDetails";
+    import PaymentForDetails from "@/components/PaymentForDetails";
 
     export default {
         components: {
             ClubInfoDetails,
             ApplicationSettingsDetails,
             LandingPageDetails,
-            AdminDetails
+            AdminDetails,
+            PaymentForDetails
         },
         data() {
             return {

@@ -1,0 +1,119 @@
+<template>
+    <v-form ref="form" v-model="valid" lazy-validation>
+        <v-container>
+            <v-row v-if="success">
+                <v-col cols="12">
+                    <v-alert dense type="success">
+                        Successfully updated.
+                    </v-alert>
+                </v-col>
+            </v-row>
+            <v-row v-if="error">
+                <v-col cols="12">
+                    <v-alert dense type="error">
+                        Error updating record.
+                    </v-alert>
+                </v-col>
+            </v-row>
+            <v-row justify="space-between">
+                <v-col cols="12" md="5">
+                    <div>Available Payment For</div>
+                    <v-row dense v-for="paymentFor in paymentFors" :key="paymentFor.id">
+                        <v-col cols="12" md="8">
+                            <v-card class="pa-2" outlined tile>{{paymentFor.paymentName}}</v-card>
+                        </v-col>
+                        <v-col cols="6" md="4">
+                            <v-btn class="ma-2" tile outlined color="error" @click="deletePaymentFor(paymentFor.id)"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-col>
+                <v-col cols="12" md="5">
+                    <div>Create Payment For</div>
+                    <v-row>
+                        <v-col class="d-flex" cols="12">
+                            <v-text-field v-model="paymentName" :rules="paymentForRules" :counter="100" label="New Payment For" required></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12" md="4">
+                            <v-btn :disabled="!valid" color="success" class="mr-4" @click="createPaymentFor">Create PaymentFor</v-btn>
+                        </v-col>
+                    </v-row>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-form>
+</template>
+<script>
+    import { HTTP } from "../http-common.js";
+
+    export default {
+        data: () => ({
+            valid: false,
+            inset: false,
+            id: 0,
+            paymentName: "",
+            paymentFors: [
+                { id: 1, paymentName: "Registration Fee" },
+                { id: 2, paymentName: "Onyeama Contribution" },
+                { id: 3, paymentName: "Inauguration Levy" },
+                { id: 4, paymentName: "Membership Dues" },
+                { id: 5, paymentName: "Women Uniform" },
+                { id: 6, paymentName: "Pot Luck" },
+                { id: 7, paymentName: "Music Launching" },
+                { id: 8, paymentName: "Men Uniform" },
+                { id: 9, paymentName: "Picnic" }
+            ],
+            createdBy: 0,
+            createdTs: null,
+            changedBy: 0,
+            changedTs: null,
+            message: "",
+            success: false,
+            error: false,
+            paymentForRules: [
+                v => !!v || 'Payment For is required',
+                v => v.length <= 100 || 'Name must not be more than 100 characters',
+            ]
+        }),
+        methods: {
+            getPaymentFors() {
+
+            },
+            createPaymentFor() {
+                alert("added: " + this.paymentName);
+                HTTP.post('/api/PaymentFor/', {
+                    id: this.id,
+                    paymentName: this.paymentName
+                })
+                    .then(() => this.saveSuccessful())
+                    .catch(() => this.saveFailed())
+            },
+            deletePaymentFor(id) {
+                alert("delete paymentName: " + id);
+                this.success = false;
+                this.error = true;
+                this.valid = false
+            },
+            saveSuccessful() {
+                this.success = true;
+                this.error = false;
+                this.getPaymentFors();
+            },
+            saveFailed() {
+                this.success = false;
+                this.error = true;
+            },
+            validate() {
+                this.$refs.form.validate();
+            },
+            reset() {
+                this.$refs.form.reset();
+                this.valid = false;
+            },
+            resetValidation() {
+                this.$refs.form.resetValidation()
+            }
+        },
+    }
+</script>
