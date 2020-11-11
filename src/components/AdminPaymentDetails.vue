@@ -77,7 +77,7 @@
             </v-row>
             <v-row>
                 <v-col class="d-flex" cols="12" md="2">
-                    <v-select v-model="selectedPaymentFor" :items="paymentFor" label="Payment for" item-text="paymentName" item-value="paymentName" required></v-select>
+                    <v-select v-model="selectedPaymentFor" :items="paymentFors" label="Payment for" item-text="paymentName" item-value="paymentName" required></v-select>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="2">
                     <v-select v-model="selectedPaymentMethod" :items="paymentMethod" label="Payment method" item-text="methodName" item-value="methodName" required></v-select>
@@ -125,16 +125,16 @@
             inset: false,
             memberPayments: [],
             members: [],
-            paymentFor: [
-                { id: 1, paymentName: "Registration Fee" },
-                { id: 2, paymentName: "Onyeama Contribution" },
-                { id: 3, paymentName: "Inauguration Levy" },
-                { id: 4, paymentName: "Membership Dues" },
-                { id: 5, paymentName: "Women Uniform" },
-                { id: 6, paymentName: "Pot Luck" },
-                { id: 7, paymentName: "Music Launching" },
-                { id: 8, paymentName: "Men Uniform" },
-                { id: 9, paymentName: "Picnic" }
+            paymentFors: [
+                //{ id: 1, paymentName: "Registration Fee" },
+                //{ id: 2, paymentName: "Onyeama Contribution" },
+                //{ id: 3, paymentName: "Inauguration Levy" },
+                //{ id: 4, paymentName: "Membership Dues" },
+                //{ id: 5, paymentName: "Women Uniform" },
+                //{ id: 6, paymentName: "Pot Luck" },
+                //{ id: 7, paymentName: "Music Launching" },
+                //{ id: 8, paymentName: "Men Uniform" },
+                //{ id: 9, paymentName: "Picnic" }
             ],
             paymentMethod: [
                 { id: 1, methodName: "Cash" },
@@ -175,6 +175,7 @@
         }),
         created() {
             this.getMembers();
+            this.getPaymentFors();
         },
         computed: {
             computedDateFormatted() {
@@ -204,6 +205,14 @@
             populateMemberPayments(data) {
                 this.memberPayments = data;
                 console.log(this.memberPayments);
+            },
+            getPaymentFors() {
+                HTTP.get('/api/PaymentFor/')
+                    .then(response => this.populatePaymentFors(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populatePaymentFors(data) {
+                this.paymentFors = data;
             },
             getFailed() {
 

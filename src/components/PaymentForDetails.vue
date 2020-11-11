@@ -54,15 +54,15 @@
             id: 0,
             paymentName: "",
             paymentFors: [
-                { id: 1, paymentName: "Registration Fee" },
-                { id: 2, paymentName: "Onyeama Contribution" },
-                { id: 3, paymentName: "Inauguration Levy" },
-                { id: 4, paymentName: "Membership Dues" },
-                { id: 5, paymentName: "Women Uniform" },
-                { id: 6, paymentName: "Pot Luck" },
-                { id: 7, paymentName: "Music Launching" },
-                { id: 8, paymentName: "Men Uniform" },
-                { id: 9, paymentName: "Picnic" }
+                //{ id: 1, paymentName: "Registration Fee" },
+                //{ id: 2, paymentName: "Onyeama Contribution" },
+                //{ id: 3, paymentName: "Inauguration Levy" },
+                //{ id: 4, paymentName: "Membership Dues" },
+                //{ id: 5, paymentName: "Women Uniform" },
+                //{ id: 6, paymentName: "Pot Luck" },
+                //{ id: 7, paymentName: "Music Launching" },
+                //{ id: 8, paymentName: "Men Uniform" },
+                //{ id: 9, paymentName: "Picnic" }
             ],
             createdBy: 0,
             createdTs: null,
@@ -76,9 +76,17 @@
                 v => v.length <= 100 || 'Name must not be more than 100 characters',
             ]
         }),
+        created() {
+            this.getPaymentFors();
+        },
         methods: {
             getPaymentFors() {
-
+                HTTP.get('/api/PaymentFor/')
+                    .then(response => this.populatePaymentFors(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populatePaymentFors(data) {
+                this.paymentFors = data;
             },
             createPaymentFor() {
                 alert("added: " + this.paymentName);
