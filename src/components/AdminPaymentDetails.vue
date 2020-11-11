@@ -211,7 +211,7 @@
             saveSuccessful() {
                 this.success = true;
                 this.error = false;
-                //this.getRoles();
+                this.getMemberPayments();
             },
             saveFailed() {
                 this.success = false;
@@ -228,7 +228,7 @@
                 this.$refs.form.resetValidation()
             },
             addPayment() {
-                alert("payment added: " + this.date);
+                //alert("payment added: " + this.date);
                 HTTP.post('/api/MemberPayment/', {
                     id: 0,
                     memberId: this.memberIdAdd,
