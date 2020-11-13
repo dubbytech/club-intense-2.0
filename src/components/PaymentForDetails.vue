@@ -80,7 +80,7 @@
                 this.paymentFors = data;
             },
             createPaymentFor() {
-                alert("added: " + this.paymentName);
+                //alert("added: " + this.paymentName);
                 HTTP.post('/api/PaymentFor/', {
                     id: this.id,
                     paymentName: this.paymentName
@@ -89,7 +89,7 @@
                     .catch(() => this.saveFailed())
             },
             deletePaymentFor(id) {
-                alert("delete paymentName: " + id);
+                //alert("delete paymentName: " + id);
                 HTTP.delete('/api/PaymentFor/' + id)
                     .then(response => this.responseMessage(response))
                     .catch(response => this.responseMessage(response))
