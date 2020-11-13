@@ -11,7 +11,8 @@
             <v-row v-if="error">
                 <v-col cols="12">
                     <v-alert dense type="error">
-                        Error updating record.
+                        Error updating record.<br />
+                        <span>{{message}}</span>
                     </v-alert>
                 </v-col>
             </v-row>
@@ -89,18 +90,15 @@
             },
             deletePaymentFor(id) {
                 alert("delete paymentName: " + id);
-                this.success = false;
-                this.error = true;
-                this.valid = false
+                HTTP.delete('/api/PaymentFor/' + id)
+                    .then(response => this.responseMessage(response))
+                    .catch(response => this.responseMessage(response))
             },
-            saveSuccessful() {
-                this.success = true;
-                this.error = false;
-                this.getPaymentFors();
-            },
-            saveFailed() {
-                this.success = false;
-                this.error = true;
+            responseMessage(response) {
+                this.message = response.data.results.message;
+                this.success = response.data.results.success;
+                this.error = !this.success;
+                if (this.success) this.getPaymentFors();
             },
             validate() {
                 this.$refs.form.validate();
