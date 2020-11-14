@@ -11,7 +11,7 @@
             <v-row v-if="error">
                 <v-col cols="12">
                     <v-alert dense type="error">
-                        Error updating record.<br />
+                        Error updating record:<br />
                         <span>{{message}}</span>
                     </v-alert>
                 </v-col>
