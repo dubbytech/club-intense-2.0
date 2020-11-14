@@ -74,7 +74,7 @@
             getPaymentFors() {
                 HTTP.get('/api/PaymentFor/')
                     .then(response => this.populatePaymentFors(response.data.results.data))
-                    .catch(() => this.getFailed())
+                    .catch(response => this.responseMessage(response))
             },
             populatePaymentFors(data) {
                 this.paymentFors = data;
@@ -85,8 +85,8 @@
                     id: this.id,
                     paymentName: this.paymentName
                 })
-                    .then(() => this.saveSuccessful())
-                    .catch(() => this.saveFailed())
+                    .then(response => this.responseMessage(response))
+                    .catch(response => this.responseMessage(response))
             },
             deletePaymentFor(id) {
                 //alert("delete paymentName: " + id);
