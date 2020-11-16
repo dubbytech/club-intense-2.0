@@ -27,7 +27,7 @@
             populateLandingPageInfo(data) {
                 //console.log(data);
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].title == "Home") {
+                    if (data[i].title == "Admin") {
                         this.landingPageInfo = data[i].pageContent;
                         break;
                     }

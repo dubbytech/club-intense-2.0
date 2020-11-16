@@ -66,6 +66,16 @@
 
 <script>
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    //import Table from '@ckeditor/ckeditor5-table/src/table';
+    //import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+    //import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
+    //import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
+    //import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
+    //import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
+    //import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
+    //import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
+    //import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
+
     import { HTTP } from "../http-common.js";
 
     export default {
@@ -74,6 +84,34 @@
             editor: ClassicEditor,
             editorConfig: {
                 // The configuration of the rich-text editor.
+                toolbar: ['heading', 'bold', 'italic', 'imageUpload', 'link', 'bulletedList', 'numberedList', 'indent', 'outdent', 'insertTable', 'alignment', 'fontSize', 'fontColor', 'mediaEmbed', 'highlight', 'blockQuote', 'undo', 'redo'],
+                image: {
+                    toolbar: ['imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignCenter', 'imageStyle:alignRight', 'imageStyle:side'],
+                    styles: ['full', 'alignLeft', 'alignCenter', 'alignRight', 'side']
+                },
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                        { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                        { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' },
+                    ],
+                },
+                mediaEmbed: {
+                    previewsInData: true,
+                },
+                //simpleUpload: {
+                //    uploadUrl: '/shopadmin/files',
+                //    headers: {
+                //        'X-CSRF-TOKEN': window.Laravel.csrfToken,
+                //    },
+                //},
+                link: {
+                    addTargetToExternalLinks: true,
+                },
             },
             landingPages: [],
             tab: null,

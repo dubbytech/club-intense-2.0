@@ -1,6 +1,11 @@
 <template>
     <v-form ref="form" v-model="valid" lazy-validation>
         <v-container>
+            <v-row>
+                <div v-html="landingPageInfo"></div>
+            </v-row>
+        </v-container>
+        <v-container>
             <v-row v-if="success">
                 <v-col cols="12">
                     <v-alert dense type="success">
@@ -47,9 +52,12 @@
 </template>
 
 <script>
+    import { HTTP } from "../http-common.js";
+
     export default {
         data: () => ({
             valid: true,
+            landingPageInfo: "",
             name: '',
             nameRules: [
                 v => !!v || 'Name is required'
@@ -84,8 +92,30 @@
             success: false,
             error: false
         }),
+        created() {
+            this.getLandingPageInfo();
+        },
+        mounted() {
 
+        },
         methods: {
+            getLandingPageInfo() {
+                HTTP.get('/api/landingPage/')
+                    .then(response => this.populateLandingPageInfo(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateLandingPageInfo(data) {
+                //console.log(data);
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].title == "Contact") {
+                        this.landingPageInfo = data[i].pageContent;
+                        break;
+                    }
+                }
+            },
+            getFailed() {
+                console.log("get failed");
+            },
             sendEmail() {
                 alert("send email ");
                 this.success = true;

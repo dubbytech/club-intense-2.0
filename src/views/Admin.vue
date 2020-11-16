@@ -3,6 +3,9 @@
         <v-card-title class="text-center justify-center py-6">
             <h1 class="font-weight-bold display-3 basil--text">Admin Only</h1>
         </v-card-title>
+        <div class="home">
+            <admin-landing-page-details />
+        </div>
         <v-tabs v-model="tab" background-color="primary" center-active dark show-arrows>
             <v-tab>Register member</v-tab>
             <v-tab>Manage roles</v-tab>
@@ -67,6 +70,8 @@
 </template>
 
 <script>
+    import AdminLandingPageDetails from "@/components/AdminLandingPageDetails";
+
     import AdminRegisterDetails from "@/components/AdminRegisterDetails";
     import AdminRoleDetails from "@/components/AdminRoleDetails";
     import AdminPaymentDetails from "@/components/AdminPaymentDetails";
@@ -78,6 +83,7 @@
 
     export default {
         components: {
+            AdminLandingPageDetails,
             AdminRegisterDetails,
             AdminRoleDetails,
             AdminPaymentDetails,

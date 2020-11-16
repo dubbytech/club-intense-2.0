@@ -3,6 +3,9 @@
         <v-card-title class="text-center justify-center py-6">
             <h1 class="font-weight-bold display-3 basil--text">Member Only</h1>
         </v-card-title>
+        <div class="home">
+            <member-details />
+        </div>
         <v-tabs v-model="tab" background-color="primary" center-active dark show-arrows>
             <v-tab>Profile</v-tab>
             <v-tab>Spouse</v-tab>
@@ -67,6 +70,8 @@
 </template>
 
 <script>
+    import MemberDetails from "@/components/MemberDetails.vue";
+
     import ProfileDetails from "@/components/MemberProfileDetails";
     import SpouseDetails from "@/components/MemberSpouseDetails";
     import ChildDetails from "@/components/MemberChildDetails";
@@ -77,6 +82,7 @@
 
     export default {
         components: {
+            MemberDetails,
             ProfileDetails,
             SpouseDetails,
             ChildDetails,
