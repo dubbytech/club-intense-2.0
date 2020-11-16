@@ -3,9 +3,11 @@
     "",
     "\\src",
     "\\src\\components",
+    "\\src\\plugins",
+    "\\src\\router",
     "\\src\\store",
     "\\src\\views"
   ],
-  "SelectedNode": "\\src\\components\\ClubInfoDetails.vue",
+  "SelectedNode": "\\src\\views\\About.vue",
   "PreviewInSolutionExplorer": false
 }
