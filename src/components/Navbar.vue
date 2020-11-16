@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    //import { HTTP } from "../http-common.js";
+    import { HTTP } from "../http-common.js";
     //import LoginRegister from "@/components/LoginRegister";
 
     export default {
@@ -57,7 +57,7 @@
         },
         data: () => ({
             drawer: false,
-            siteTitle: "Organization Name",
+            siteTitle: "",
             src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
             dialog: false,
             member: null,
@@ -85,7 +85,7 @@
 
         },
         created() {
-
+            this.getSiteInfo();
         },
         mounted() {
             if (this.$session.get('authenticated')) {
@@ -99,10 +99,21 @@
             //alert("updated");
         },
         watch: {
-            
+
         },
         methods: {
-
+            getSiteInfo() {
+                HTTP.get('/api/siteinfo/')
+                    .then(response => this.populateSiteInfo(response.data.results.data[0]))
+                    .catch(() => this.getFailed())
+            },
+            populateSiteInfo(data) {
+                //console.log(data);
+                this.siteTitle = data.name;
+            },
+            getFailed() {
+                console.log("get failed");
+            },
         }
 
     }
