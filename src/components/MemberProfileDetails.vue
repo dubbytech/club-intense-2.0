@@ -20,7 +20,7 @@
                     <v-text-field v-model="titleDegree" :rules="titleRules" :counter="50" label="Title" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="6">
-                    <v-select :items="genderItems" label="Gender" required></v-select>
+                    <v-select v-model="gender" :items="genderItems" label="Gender" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -42,7 +42,7 @@
                     <v-text-field v-model="address1" :rules="addressRules1" :counter="50" label="Address1" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="address2" :rules="addressRules2" :counter="50" label="Address2"></v-text-field>
+                    <v-text-field v-model="address2" :counter="50" label="Address2"></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -64,9 +64,8 @@
                                           label="Date of birth"
                                           hint="MM/DD/YYYY format"
                                           persistent-hint
-                                          prepend-icon="event"
                                           v-bind="attrs"
-                                          @blur="date = parseDate(dateFormatted)"
+                                          @blur="date = formatDate(dateFormatted)"
                                           required
                                           v-on="on"></v-text-field>
                         </template>
@@ -77,7 +76,7 @@
                     <v-text-field v-model="cellPhone" :rules="cellPhoneRules" :counter="11" label="Cell phone" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select :items="hometowns" label="Home town" item-text="Name" item-value="id" required></v-select>
+                    <v-select v-model="homeTownId" :items="hometowns" label="Home town" item-text="Name" item-value="id" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -91,8 +90,9 @@
 </template>
 
 <script>
+    import { HTTP } from "../http-common.js";
     export default {
-        data: vm => ({
+        data: () => ({
             valid: false,
             memberId: 0,
             titleDegree: "",
@@ -105,13 +105,13 @@
             city: "",
             state: "",
             zipCode: "",
-            dob: vm.formatDate(new Date().toISOString().substr(0, 10)),
+            dob: "",
             gender: "",
             genderItems: ["Male", "Female"],
             hometowns: [
-                { id: 1, Name: "Abatete" },
-                { id: 2, Name: "Nkpor" },
-                { id: 3, Name: "Umuoji" }
+                { id: 1007, Name: "Abatete" },
+                { id: 1008, Name: "Nkpor" },
+                { id: 1009, Name: "Umuoji" }
             ],
             homeTownId: 0,
             cellPhone: "",
@@ -146,9 +146,9 @@
                 v => !!v || 'Address1 is required',
                 v => v.length <= 50 || 'Address1 must not be greater than 50 characters',
             ],
-            addressRules2: [
-                v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
-            ],
+            //addressRules2: [
+            //    v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
+            //],
             cityRules: [
                 v => !!v || 'City is required',
                 v => v.length <= 50 || 'City must not be greater than 50 characters',
@@ -165,6 +165,9 @@
             menu1: false,
             menu2: false,
         }),
+        created() {
+            this.getProfile();
+        },
         computed: {
             computedDateFormatted() {
                 return this.formatDate(this.date)
@@ -176,6 +179,28 @@
             },
         },
         methods: {
+            getProfile() {
+                HTTP.get('/api/member/0')
+                    .then(response => this.populateProfile(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateProfile(data) {
+                this.titleDegree = data.titleDegree;
+                this.firstName = data.firstName;
+                this.lastName = data.lastName;
+                this.mi = data.mi;
+                this.email = data.email;
+                this.address1 = data.address1;
+                this.address2 = data.address2;
+                this.city = data.city;
+                this.state = data.state;
+                this.zipCode = data.postalCode;
+                this.dob = this.formatDate(data.dob);
+                this.date = new Date(data.dob).toISOString().substr(0, 10);
+                this.gender = data.gender;
+                this.homeTownId = data.homeTownId;
+                this.cellPhone = data.cellPhone;
+            },
             validate() {
                 this.$refs.form.validate();
             },
@@ -199,7 +224,7 @@
             formatDate(date) {
                 if (!date) return null
 
-                const [year, month, day] = date.split('-')
+                const [year, month, day] = date.split('-');
                 return `${month}/${day}/${year}`
             },
             parseDate(date) {
