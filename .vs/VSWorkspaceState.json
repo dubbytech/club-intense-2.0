@@ -3,11 +3,8 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\plugins",
-    "\\src\\router",
-    "\\src\\store",
     "\\src\\views"
   ],
-  "SelectedNode": "\\src\\views\\About.vue",
+  "SelectedNode": "\\src\\components\\MemberDetails.vue",
   "PreviewInSolutionExplorer": false
 }

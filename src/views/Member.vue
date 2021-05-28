@@ -71,7 +71,6 @@
 
 <script>
     import MemberDetails from "@/components/MemberDetails.vue";
-
     import ProfileDetails from "@/components/MemberProfileDetails";
     import SpouseDetails from "@/components/MemberSpouseDetails";
     import ChildDetails from "@/components/MemberChildDetails";

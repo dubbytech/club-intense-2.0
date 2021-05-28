@@ -65,7 +65,6 @@
                                           hint="MM/DD/YYYY format"
                                           persistent-hint
                                           v-bind="attrs"
-                                          @blur="date = formatDate(dateFormatted)"
                                           required
                                           v-on="on"></v-text-field>
                         </template>
@@ -76,7 +75,7 @@
                     <v-text-field v-model="cellPhone" :rules="cellPhoneRules" :counter="11" label="Cell phone" required></v-text-field>
                 </v-col>
                 <v-col class="d-flex" cols="12" md="4">
-                    <v-select v-model="homeTownId" :items="hometowns" label="Home town" item-text="Name" item-value="id" required></v-select>
+                    <v-select v-model="homeTownId" :items="hometowns" label="Home town" item-text="name" item-value="id" required></v-select>
                 </v-col>
             </v-row>
             <v-row>
@@ -94,7 +93,7 @@
     export default {
         data: () => ({
             valid: false,
-            memberId: 0,
+            id: "0",
             titleDegree: "",
             firstName: "",
             lastName: "",
@@ -108,11 +107,7 @@
             dob: "",
             gender: "",
             genderItems: ["Male", "Female"],
-            hometowns: [
-                { id: 1007, Name: "Abatete" },
-                { id: 1008, Name: "Nkpor" },
-                { id: 1009, Name: "Umuoji" }
-            ],
+            hometowns: [],
             homeTownId: 0,
             cellPhone: "",
             imageId: "",
@@ -125,7 +120,7 @@
             error: false,
             nameRules: [
                 v => !!v || 'Name is required',
-                v => v.length <= 10 || 'Name must not be greater than 10 characters',
+                v => v.length <= 50 || 'Name must not be greater than 50 characters',
             ],
             emailRules: [
                 v => !!v || 'E-mail is required',
@@ -146,9 +141,6 @@
                 v => !!v || 'Address1 is required',
                 v => v.length <= 50 || 'Address1 must not be greater than 50 characters',
             ],
-            //addressRules2: [
-            //    v => v.length <= 50 || 'Address2 must not be greater than 50 characters',
-            //],
             cityRules: [
                 v => !!v || 'City is required',
                 v => v.length <= 50 || 'City must not be greater than 50 characters',
@@ -166,6 +158,7 @@
             menu2: false,
         }),
         created() {
+            this.getHomeTowns();
             this.getProfile();
         },
         computed: {
@@ -201,6 +194,14 @@
                 this.homeTownId = data.homeTownId;
                 this.cellPhone = data.cellPhone;
             },
+            getHomeTowns() {
+                HTTP.get('/api/HomeTown/')
+                    .then(response => this.populateHomeTowns(response.data.results.data))
+                    .catch(() => this.getFailed())
+            },
+            populateHomeTowns(data) {
+                this.hometowns = data;
+            },
             validate() {
                 this.$refs.form.validate();
             },
@@ -212,14 +213,37 @@
                 this.$refs.form.resetValidation()
             },
             submitProfile() {
-                alert("submit");
-                this.success = true;
-                this.error = false;
+                HTTP.post('/api/member/', {
+                    id: this.id,
+                    titleDegree: this.titleDegree,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    mi: this.mi,
+                    email: this.email,
+                    address1: this.address1,
+                    address2: this.address2,
+                    city: this.city,
+                    state: this.state,
+                    postalCode: this.zipCode,
+                    dob: new Date(this.dob),
+                    gender: this.gender,
+                    homeTownId: this.homeTownId,
+                    cellPhone: this.cellPhone
+                })
+                    .then(response => this.responseMessage(response))
+                    .catch(response => this.responseMessage(response))
+            },
+            responseMessage(response) {
+                this.message = response.data.results.message;
+                this.success = response.data.results.success;
+                this.error = !this.success;
             },
             deleteProfile() {
-                alert("delete");
-                this.error = true;
-                this.success = false;
+                HTTP.delete('/api/member/0', {
+                    id: this.id,
+                })
+                    .then(response => this.responseMessage(response))
+                    .catch(response => this.responseMessage(response))
             },
             formatDate(date) {
                 if (!date) return null

@@ -66,15 +66,6 @@
 
 <script>
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-    //import Table from '@ckeditor/ckeditor5-table/src/table';
-    //import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
-    //import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
-    //import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
-    //import EssentialsPlugin from '@ckeditor/ckeditor5-essentials/src/essentials';
-    //import BoldPlugin from '@ckeditor/ckeditor5-basic-styles/src/bold';
-    //import ItalicPlugin from '@ckeditor/ckeditor5-basic-styles/src/italic';
-    //import LinkPlugin from '@ckeditor/ckeditor5-link/src/link';
-    //import ParagraphPlugin from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 
     import { HTTP } from "../http-common.js";
 
@@ -103,12 +94,6 @@
                 mediaEmbed: {
                     previewsInData: true,
                 },
-                //simpleUpload: {
-                //    uploadUrl: '/shopadmin/files',
-                //    headers: {
-                //        'X-CSRF-TOKEN': window.Laravel.csrfToken,
-                //    },
-                //},
                 link: {
                     addTargetToExternalLinks: true,
                 },

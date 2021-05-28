@@ -25,13 +25,13 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="firstname" :rules="nameRules" :counter="50" label="First name" required></v-text-field>
+                    <v-text-field v-model="firstName" :rules="nameRules" :counter="50" label="First name" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
                     <v-text-field v-model="mi" :rules="miRules" :counter="2" label="MI" required></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
-                    <v-text-field v-model="lastname" :rules="nameRules" :counter="50" label="Last name" required></v-text-field>
+                    <v-text-field v-model="lastName" :rules="nameRules" :counter="50" label="Last name" required></v-text-field>
                 </v-col>
             </v-row>
             <v-row>
@@ -45,9 +45,7 @@
                                           label="Date of birth"
                                           hint="MM/DD/YYYY format"
                                           persistent-hint
-                                          prepend-icon="event"
                                           v-bind="attrs"
-                                          @blur="date = parseDate(dateFormatted)"
                                           required
                                           v-on="on"></v-text-field>
                         </template>
@@ -60,8 +58,8 @@
             </v-row>
             <v-row>
                 <v-col cols="12" md="4">
-                    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitProfile">Submit</v-btn>
-                    <v-btn color="error" class="mr-4" @click="deleteProfile"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
+                    <v-btn :disabled="!valid" color="success" class="mr-4" @click="submitSpouse">Submit</v-btn>
+                    <v-btn color="error" class="mr-4" @click="deleteSpouse"><v-icon left>mdi-trash-can</v-icon> Delete </v-btn>
                 </v-col>
             </v-row>
         </v-container>
@@ -70,16 +68,15 @@
 
 <script>
     export default {
-        data: vm => ({
+        data: () => ({
             valid: false,
-            memberId: 0,
-            spouseId: 0,
+            id: "0",
             titleDegree: "",
             firstName: "",
             lastName: "",
             mi: "",
             email: "",
-            dob: vm.formatDate(new Date().toISOString().substr(0, 10)),
+            dob: "",
             gender: "",
             genderItems: ["Male", "Female"],
             cellPhone: "",
@@ -91,13 +88,24 @@
             message: "",
             success: false,
             error: false,
+            titleRules: [
+                v => !!v || 'Title is required',
+                v => v.length <= 50 || 'Title must not be greater than 50 characters',
+            ],
             nameRules: [
                 v => !!v || 'Name is required',
-                v => v.length <= 10 || 'Name must be less than 10 characters',
+                v => v.length <= 50 || 'Name must be less than 50 characters',
+            ],
+            miRules: [
+                v => v.length <= 2 || 'Title must not be greater than 2 characters',
             ],
             emailRules: [
                 v => !!v || 'E-mail is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
+            ],
+            cellPhoneRules: [
+                v => !!v || 'Cell Phone is required',
+                v => v.length <= 11 || 'Cell Phone must not be greater than 11 characters',
             ],
             date: new Date().toISOString().substr(0, 10),
             menu1: false,
@@ -124,12 +132,12 @@
             resetValidation() {
                 this.$refs.form.resetValidation()
             },
-            submitProfile() {
+            submitSpouse() {
                 alert("submit");
                 this.success = true;
                 this.error = false;
             },
-            deleteProfile() {
+            deleteSpouse() {
                 alert("delete");
                 this.error = true;
                 this.success = false;
