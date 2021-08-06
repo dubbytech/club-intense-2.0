@@ -1,41 +1,32 @@
 ﻿<template>
-    <v-form ref="form" v-model="valid" lazy-validation>
-        <v-container>
-            <!--<v-row v-if="success">
-                <v-col>
-                    <v-alert dense type="success">
-                        Successfully updated.
-                    </v-alert>
-                </v-col>
-            </v-row>
-            <v-row v-if="error">
-                <v-col>
-                    <v-alert dense type="error">
-                        Error updating record.
-                    </v-alert>
-                </v-col>
-            </v-row>-->
-            <v-row>
-                <v-card>
-                    <v-card>
-                        <v-card-title class="headline">Login</v-card-title>
-                        <div class="login-wrapper border border-light">
-                            <form class="form-signin" method="post" @submit.prevent="login">
-                                <h2 class="form-signin-heading">Please sign in</h2>
-                                <label for="inputEmail" class="sr-only">Email address</label>
-                                <input v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                                <label for="inputPassword" class="sr-only">Password</label>
-                                <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                            </form>
-                        </div>
-                    </v-card>
-                </v-card>
-            </v-row>
-        </v-container>
-    </v-form>
+    <v-app id="inspire">
+        <v-content>
+            <v-container fluid fill-height>
+                <v-layout align-center justify-center>
+                    <v-flex xs12 sm8 md4>
+                        <form method="post" @submit.prevent="login">
+                            <v-card class="elevation-12">
+                                <v-toolbar dark color="primary">
+                                    <v-toolbar-title>Login form</v-toolbar-title>
+                                </v-toolbar>
+                                <v-card-text>
+                                    <v-form>
+                                        <v-text-field prepend-icon="person" v-model="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus></v-text-field>
+                                        <v-text-field prepend-icon="lock" v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required></v-text-field>
+                                    </v-form>
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" type="submit">Login</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </form>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-content>
+    </v-app>
 </template>
-
 <script>
     import { HTTP } from "../http-common.js";
 
@@ -44,8 +35,8 @@
             valid: false,
             success: "",
             error: "",
-            email: "vastgroupusa@gmail.com",
-            password: "!@12QAZwsxedcrfv"
+            email: "",
+            password: ""
         }),
         created() {
 
@@ -64,8 +55,10 @@
         },
         methods: {
             login() {
-                console.log(this.email);
-                console.log(this.password);
+                this.email = "vastgroupusa@gmail.com";
+                this.password = "!@12QAZwsxedcrfv";
+                //console.log(this.email);
+                //console.log(this.password);
 
                 HTTP.post('Identity/Account/Login', {
                     Email: this.email,
@@ -85,6 +78,7 @@
                 window.location.reload();
             },
             loginFailed() {
+                alert("failed");
                 this.$session.set("authenticated", true);
                 this.$router.replace(this.$route.query.redirect || '/');
                 window.location.reload();
