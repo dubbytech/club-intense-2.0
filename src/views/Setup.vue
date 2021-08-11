@@ -1,14 +1,14 @@
 <template>
     <v-card>
-        <v-card-title class="text-center justify-center py-6">
+        <!--<v-card-title class="text-center justify-center py-6">
             <h1 class="font-weight-bold display-3 basil--text">Site setup</h1>
-        </v-card-title>
-        <div class="home">
+        </v-card-title>-->
+        <!--<div class="home">
             <site-setup-details />
-        </div>
-        <v-tabs v-model="tab" background-color="primary" center-active dark show-arrows>
+        </div>-->
+        <v-tabs v-model="tab" background-color="green" center-active dark show-arrows>
             <v-tab>Club info</v-tab>
-            <v-tab>Application settings</v-tab>
+            <v-tab>Email Sender</v-tab>
             <v-tab>Landing Pages</v-tab>
             <v-tab>Manage Admins</v-tab>
             <v-tab>Manage Payment For</v-tab>
@@ -24,7 +24,7 @@
             <v-tab-item>
                 <v-card flat>
                     <v-card-text>
-                        <application-settings-details></application-settings-details>
+                        <email-sender-details></email-sender-details>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -54,19 +54,16 @@
 </template>
 
 <script>
-    import SiteSetupDetails from "@/components/SiteSetupDetails";
-
     import ClubInfoDetails from "@/components/ClubInfoDetails";
-    import ApplicationSettingsDetails from "@/components/ApplicationSettingsDetails";
+    import EmailSenderDetails from "@/components/EmailSenderDetails";
     import LandingPageDetails from "@/components/LandingPageDetails";
     import AdminDetails from "@/components/AdminDetails";
     import PaymentForDetails from "@/components/PaymentForDetails";
 
     export default {
         components: {
-            SiteSetupDetails,
             ClubInfoDetails,
-            ApplicationSettingsDetails,
+            EmailSenderDetails,
             LandingPageDetails,
             AdminDetails,
             PaymentForDetails

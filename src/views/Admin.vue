@@ -14,6 +14,7 @@
             <v-tab>Manage Hometowns</v-tab>
             <v-tab>Manage Business types</v-tab>
             <v-tab>Manage memberships</v-tab>
+            <v-tab>Site Setup</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
@@ -65,6 +66,13 @@
                     </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        <site-setup v-bind:isAdmin="true"></site-setup>
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs-items>
     </v-card>
 </template>
@@ -79,7 +87,7 @@
     import AdminHometownDetails from "@/components/AdminHometownDetails";
     import AdminBusinessTypeDetails from "@/components/AdminBusinessTypeDetails";
     import DirectoryDetails from "@/components/DirectoryDetails";
-
+    import SiteSetup from "@/views/Setup";
 
     export default {
         components: {
@@ -90,7 +98,8 @@
             AdminCommitteeDetails,
             AdminHometownDetails,
             AdminBusinessTypeDetails,
-            DirectoryDetails
+            DirectoryDetails,
+            SiteSetup
         },
         data() {
             return {

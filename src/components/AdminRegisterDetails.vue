@@ -4,14 +4,14 @@
             <v-row v-if="success">
                 <v-col cols="12">
                     <v-alert dense type="success">
-                        Successfully updated.
+                        User has been registered successfully.
                     </v-alert>
                 </v-col>
             </v-row>
             <v-row v-if="error">
                 <v-col cols="12">
                     <v-alert dense type="error">
-                        Error updating record.
+                        {{message}}
                     </v-alert>
                 </v-col>
             </v-row>
@@ -44,14 +44,12 @@
 </template>
 
 <script>
+    import { HTTP } from "../http-common.js";
     export default {
         data: () => ({
             valid: false,
-            email: "",
-            createdBy: 0,
-            createdTs: null,
-            changedBy: 0,
-            changedTs: null,
+            email: "vastgroupusa@gmail.com",
+            password: "!@12QAZwsxedcrfv",
             message: "",
             success: false,
             error: false,
@@ -72,9 +70,30 @@
                 this.$refs.form.resetValidation()
             },
             registerMember() {
-                alert("registered");
-                this.success = true;
-                this.error = false;
+                HTTP.post('/api/Register/', {
+                    Email: this.email,
+                    Password: this.password,
+                    ConfirmPassword:this.password
+                })
+                    .then(response => this.registerSuccessful(response.data))
+                    .catch(response => this.registerFailed(response.data))
+            },
+            registerSuccessful(data) {
+                console.log(data);
+                if (data.success) {
+                    this.success = true;
+                    this.error = false;
+                }
+                else {
+                    this.success = false;
+                    this.error = true;
+                    this.message = data.text;
+                }
+            },
+            registerFailed(data) {
+                this.success = false;
+                this.error = true;
+                this.message = data.text;
             }
         },
     }

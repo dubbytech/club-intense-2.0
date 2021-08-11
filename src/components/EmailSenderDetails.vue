@@ -95,7 +95,7 @@
             serverEmailHost: "",
             serverEmailPort: "",
             serverEmailEnableSSL: "",
-            enableSSL: ["True", "False"],
+            enableSSL: ["1", "0"],
             serverDefaultContactEmail: "",
             serverSendgridApiKey: "",
             defaultRegistrationPassword: "",
@@ -171,7 +171,7 @@
         },
         methods: {
             getAppSettings() {
-                HTTP.get('/api/appSetting/')
+                HTTP.get('/api/emailSender/')
                     .then(response => this.populateAppSettings(response.data.results.data[0]))
                     .catch(() => this.getFailed())
             },
@@ -210,7 +210,7 @@
             },
             submitAppSettings() {
                 //alert("submit");
-                HTTP.post('/api/appSetting/', {
+                HTTP.post('/api/emailSender/', {
                     id: 0,
                     webMasterEmail: this.webMasterEmail,
                     webMasterPassword: this.webMasterPassword,
