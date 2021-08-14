@@ -95,7 +95,7 @@
             serverEmailHost: "",
             serverEmailPort: "",
             serverEmailEnableSSL: "",
-            enableSSL: ["1", "0"],
+            enableSSL: ["True", "False"],
             serverDefaultContactEmail: "",
             serverSendgridApiKey: "",
             defaultRegistrationPassword: "",
@@ -172,7 +172,7 @@
         methods: {
             getAppSettings() {
                 HTTP.get('/api/emailSender/')
-                    .then(response => this.populateAppSettings(response.data.results.data[0]))
+                    .then(response => this.populateAppSettings(response.data.results.data))
                     .catch(() => this.getFailed())
             },
             populateAppSettings(data) {

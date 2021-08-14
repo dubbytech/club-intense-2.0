@@ -3,12 +3,20 @@
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
+                    
                     <v-flex xs12 sm8 md4>
                         <form method="post" @submit.prevent="onSubmit" @reset.prevent="onCancel">
                             <v-card class="elevation-12">
                                 <v-toolbar dark color="primary">
                                     <v-toolbar-title>Login form</v-toolbar-title>
                                 </v-toolbar>
+                                <v-row v-if="error">
+                                    <v-col cols="12">
+                                        <v-alert dense type="error">
+                                            {{message}}
+                                        </v-alert>
+                                    </v-col>
+                                </v-row>
                                 <v-card-text>
                                     <v-form>
                                         <v-text-field prepend-icon="person" v-model="email" type="email" id="inputEmail" :rules="emailRules" label="E-mail" class="form-control" placeholder="Enter email address" required></v-text-field>
@@ -35,6 +43,7 @@
             valid: false,
             success: "",
             error: "",
+            message: "",
             email: "vastgroupusa@gmail.com",
             emailRules: [
                 v => !!v || 'E-mail is required',
@@ -62,7 +71,7 @@
                     RememberMe: false,
                 })
                     .then(response => this.loginSuccessful(response))
-                    .catch(() => this.loginFailed())
+                    .catch(response => this.loginFailed(response))
             },
             onCancel() {
                 this.email = "";
@@ -73,16 +82,30 @@
 
             },
             loginSuccessful(response) {
-                console.log(response);
-                this.$session.set("authenticated", true);
-                this.$router.replace(this.$route.query.redirect || '/');
-                window.location.reload();
+                console.log(response.data.results.success);
+                if (response.data.results.success == true) {
+                    this.$session.set("authenticated", true);
+                    this.$session.set("user", this.email);
+                    this.$router.replace(this.$route.query.redirect || response.data.results.data);
+                    window.location.reload();
+                }
+                else {
+                    console.log(response.data.results);
+                    this.error = true;
+                    this.$session.set("authenticated", false);
+                    this.$session.set("user", null);
+                    this.message = response.data.results.message;
+                    //this.$router.replace(this.$route.query.redirect || response.data.results.data);
+                    //window.location.reload();
+                }
             },
             loginFailed(response) {
-                console.log(response);
+                this.error = true;
                 this.$session.set("authenticated", false);
-                this.$router.replace(this.$route.query.redirect || '/');
-                window.location.reload();
+                this.$session.set("user", null);
+                this.message = response.data.results.message;
+                //this.$router.replace(this.$route.query.redirect || response.data.results.data);
+                //window.location.reload();
             }
         }
     }
