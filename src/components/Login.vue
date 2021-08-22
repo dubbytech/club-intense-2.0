@@ -3,7 +3,6 @@
         <v-content>
             <v-container fluid fill-height>
                 <v-layout align-center justify-center>
-                    
                     <v-flex xs12 sm8 md4>
                         <form method="post" @submit.prevent="onSubmit" @reset.prevent="onCancel">
                             <v-card class="elevation-12">
@@ -26,7 +25,11 @@
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn color="primary" type="submit" class="form-control float-right">Login</v-btn>
-                                    <v-btn color="default" type="reset" class="form-control float-right">Cancel</v-btn>
+                                    <v-btn color="default" type="reset" class="form-control float-right">Clear</v-btn>
+                                </v-card-actions>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <a href="/ForgotPassword">Forgot my password</a>
                                 </v-card-actions>
                             </v-card>
                         </form>
@@ -53,6 +56,10 @@
             passwordRules: [
                 v => !!v || 'Password is required'
             ],
+            user: {
+                authenticated: false,
+                email: ""
+            },
         }),
         created() {
 
@@ -82,18 +89,20 @@
 
             },
             loginSuccessful(response) {
-                console.log(response.data.results.success);
+                //console.log(response.data.results.success);
                 if (response.data.results.success == true) {
-                    this.$session.set("authenticated", true);
-                    this.$session.set("user", this.email);
+                    this.user.authenticated = true;
+                    this.user.email = this.email;
+                    this.$session.set("user", this.user);
                     this.$router.replace(this.$route.query.redirect || response.data.results.data);
                     window.location.reload();
                 }
                 else {
-                    console.log(response.data.results);
+                    //console.log(response.data.results);
                     this.error = true;
-                    this.$session.set("authenticated", false);
-                    this.$session.set("user", null);
+                    this.user.authenticated = false;
+                    this.user.email = null;
+                    this.$session.set("user", this.user);
                     this.message = response.data.results.message;
                     //this.$router.replace(this.$route.query.redirect || response.data.results.data);
                     //window.location.reload();
@@ -101,12 +110,13 @@
             },
             loginFailed(response) {
                 this.error = true;
-                this.$session.set("authenticated", false);
-                this.$session.set("user", null);
+                this.user.authenticated = false;
+                this.user.email = null;
+                this.$session.set("user", this.user);
                 this.message = response.data.results.message;
                 //this.$router.replace(this.$route.query.redirect || response.data.results.data);
                 //window.location.reload();
-            }
+            },
         }
     }
 </script>

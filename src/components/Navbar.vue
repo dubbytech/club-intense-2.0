@@ -87,7 +87,7 @@
             this.getSiteInfo();
         },
         mounted() {
-            if (this.$session.get('authenticated')) {
+            if (this.$session.get('user').authenticated) {
                 this.authenticated = true;
             }
             else {

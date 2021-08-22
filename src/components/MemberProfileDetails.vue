@@ -173,7 +173,7 @@
         },
         methods: {
             getProfile() {
-                HTTP.get('/api/member/' + this.$session.get('user'))
+                HTTP.get('/api/member/' + this.$session.get('user').email)
                     .then(response => this.populateProfile(response.data.results.data))
                     .catch(() => this.getFailed())
             },

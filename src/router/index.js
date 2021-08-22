@@ -68,10 +68,28 @@ const routes = [
         path: "/login",
         name: "Login",
         // route level code-splitting
-        // this generates a separate chunk (loginRegister.[hash].js) for this route
+        // this generates a separate chunk (Login.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
             import(/* webpackChunkName: "login" */ "../components/Login.vue")
+    },
+    {
+        path: "/ForgotPassword",
+        name: "ForgotPassword",
+        // route level code-splitting
+        // this generates a separate chunk (ForgotPassword.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import(/* webpackChunkName: "login" */ "@/components/ForgotPassword.vue")
+    },
+    {
+        path: "/ForgotPasswordConfirmation",
+        name: "ForgotPasswordConfirmation",
+        // route level code-splitting
+        // this generates a separate chunk (ForgotPassword.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import(/* webpackChunkName: "login" */ "@/components/ForgotPasswordConfirmation.vue")
     }
 ];
 

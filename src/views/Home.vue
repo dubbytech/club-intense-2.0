@@ -14,6 +14,11 @@
         components: {
             HomeDetails
         },
-        
+        created() {
+            //alert("hi");
+        },
+        mounted() {
+           
+        },
     };
 </script>
