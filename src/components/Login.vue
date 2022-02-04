@@ -58,7 +58,8 @@
             ],
             user: {
                 authenticated: false,
-                email: ""
+                email: "",
+                isAdmin: false
             },
         }),
         created() {
@@ -104,18 +105,14 @@
                     this.user.email = null;
                     this.$session.set("user", this.user);
                     this.message = response.data.results.message;
-                    //this.$router.replace(this.$route.query.redirect || response.data.results.data);
-                    //window.location.reload();
                 }
             },
-            loginFailed(response) {
+            loginFailed() {
                 this.error = true;
                 this.user.authenticated = false;
                 this.user.email = null;
                 this.$session.set("user", this.user);
-                this.message = response.data.results.message;
-                //this.$router.replace(this.$route.query.redirect || response.data.results.data);
-                //window.location.reload();
+                this.message = "Unable to process request. Please try again.";
             },
         }
     }

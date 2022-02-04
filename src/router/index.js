@@ -90,6 +90,19 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
             import(/* webpackChunkName: "login" */ "@/components/ForgotPasswordConfirmation.vue")
+    },
+    {
+        path: "/logout",
+        name: "logout",
+        // route level code-splitting
+        // this generates a separate chunk (Login.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () =>
+            import(/* webpackChunkName: "login" */ "@/components/Logout.vue")
+    },
+    {
+        path: "*",
+        redirect: "/login"
     }
 ];
 

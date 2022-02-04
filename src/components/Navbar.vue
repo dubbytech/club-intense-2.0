@@ -3,7 +3,6 @@
         <v-toolbar dark prominent :src="src">
             <v-app-bar-nav-icon class="grey--text hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="grey--text">
-                <!--<span class="font-weight-light">Site</span>-->
                 <span>{{siteTitle}}</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
@@ -69,7 +68,8 @@
                 { icon: 'contacts', text: 'Gallery', route: '/gallery' },
                 { icon: 'contacts', text: 'Member Only', route: '/member' },
                 { icon: 'contacts', text: 'Admin', route: '/admin' },
-                { icon: 'contacts', text: 'Contact', route: '/contact' }
+                { icon: 'contacts', text: 'Contact', route: '/contact' },
+                { icon: 'contacts', text: 'Logout', route: '/logout' }
 
             ],
             generalLinks: [
