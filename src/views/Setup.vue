@@ -12,6 +12,7 @@
             <v-tab>Landing Pages</v-tab>
             <v-tab>Manage Admins</v-tab>
             <v-tab>Manage Payment For</v-tab>
+            <v-tab>Manage Gallery Images</v-tab>
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item>
@@ -49,6 +50,13 @@
                     </v-card-text>
                 </v-card>
             </v-tab-item>
+            <v-tab-item>
+                <v-card flat>
+                    <v-card-text>
+                        <gallery-image-details></gallery-image-details>
+                    </v-card-text>
+                </v-card>
+            </v-tab-item>
         </v-tabs-items>
     </v-card>
 </template>
@@ -59,6 +67,7 @@
     import LandingPageDetails from "@/components/LandingPageDetails";
     import AdminDetails from "@/components/AdminDetails";
     import PaymentForDetails from "@/components/PaymentForDetails";
+    import GalleryImageDetails from "@/components/GalleryImageDetails";
 
     export default {
         components: {
@@ -66,7 +75,8 @@
             EmailSenderDetails,
             LandingPageDetails,
             AdminDetails,
-            PaymentForDetails
+            PaymentForDetails,
+            GalleryImageDetails
         },
         data() {
             return {
