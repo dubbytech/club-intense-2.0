@@ -12,13 +12,13 @@
                                 <v-row v-if="error">
                                     <v-col cols="12">
                                         <v-alert dense type="error">
-                                            {{message}}
+                                            {{ message }}
                                         </v-alert>
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                     <v-form>
-                                        <v-text-field prepend-icon="person" v-model="email" type="email" id="inputEmail" :rules="emailRules" label="E-mail" class="form-control" placeholder="Enter email address" required></v-text-field>
+                                        <v-text-field prepend-icon="person" v-model="username" type="text" id="inputUsername" label="Username" class="form-control" placeholder="Enter username" required></v-text-field>
                                         <v-text-field prepend-icon="lock" v-model="password" type="password" id="inputPassword" :rules="passwordRules" label="Password" class="form-control" placeholder="Enter password" required></v-text-field>
                                     </v-form>
                                 </v-card-text>
@@ -40,83 +40,82 @@
     </v-app>
 </template>
 <script>
-    import { HTTP } from "../http-common.js";
-    export default {
-        data: () => ({
-            valid: false,
-            success: "",
-            error: "",
-            message: "",
-            email: "vastgroupusa@gmail.com",
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-            ],
-            password: "!@12QAZwsxedcrfv",
-            passwordRules: [
-                v => !!v || 'Password is required'
-            ],
-            user: {
-                authenticated: false,
-                email: "",
-                isAdmin: false
-            },
-        }),
-        created() {
-
+import { HTTP } from "../http-common.js";
+export default {
+    data: () => ({
+        valid: false,
+        success: "",
+        error: "",
+        message: "",
+        username: "ugochukwu",
+        emailRules: [
+            v => !!v || "E-mail is required",
+            v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+        ],
+        password: "Password9671",
+        passwordRules: [v => !!v || "Password is required"],
+        user: {
+            authenticated: false,
+            username: "",
+            isAdmin: false,
+            companyId: ""
+        }
+    }),
+    created() { },
+    updated() { },
+    mounted() { },
+    methods: {
+        onSubmit() {
+            HTTP.post("/api/authentication/login/", {
+                Username: this.username,
+                Password: this.password,
+                RememberMe: false
+            })
+                .then(response => this.loginSuccessful(response))
+                .catch(response => this.loginFailed(response));
         },
-        updated() {
-
+        onCancel() {
+            this.username = "";
+            this.password = "";
         },
-        mounted() {
 
-        },
-        methods: {
-            onSubmit() {
-                HTTP.post('/api/Login/', {
-                    Email: this.email,
-                    Password: this.password,
-                    RememberMe: false,
-                })
-                    .then(response => this.loginSuccessful(response))
-                    .catch(response => this.loginFailed(response))
-            },
-            onCancel() {
-                this.email = "";
-                this.password = "";
-            },
-
-            checkCurrentLogin() {
-
-            },
-            loginSuccessful(response) {
-                //console.log(response.data.results.success);
-                if (response.data.results.success == true) {
-                    this.user.authenticated = true;
-                    this.user.email = this.email;
-                    this.$session.set("user", this.user);
-                    this.$router.replace(this.$route.query.redirect || response.data.results.data);
-                    window.location.reload();
-                }
-                else {
-                    //console.log(response.data.results);
-                    this.error = true;
-                    this.user.authenticated = false;
-                    this.user.email = null;
-                    this.$session.set("user", this.user);
-                    this.message = response.data.results.message;
-                }
-            },
-            loginFailed() {
+        checkCurrentLogin() { },
+        loginSuccessful(response) {
+            console.log(response.data.accessToken);
+            if (response.data.accessToken != "") {
+                this.$session.start();
+                this.user.authenticated = true;
+                this.user.username = this.username;
+                this.user.companyId = "6132BDB1-BE3E-49A2-E9B9-08DA6EA9FA91"; //need to find a way to get this value from token
+                this.$session.set("user", this.user);
+                // this.$router.replace(
+                //     this.$route.query.redirect || response.data.accessToken
+                // );
+                this.$router.push({
+                    name: "home",
+                    query: { redirect: "/" }
+                });
+                window.location.reload();
+            } else {
+                console.log(response.data.accessToken);
                 this.error = true;
                 this.user.authenticated = false;
-                this.user.email = null;
+                this.user.username = null;
                 this.$session.set("user", this.user);
-                this.message = "Unable to process request. Please try again.";
-            },
+                this.message = response.data.accessToken;
+            }
+        },
+        loginFailed() {
+            this.error = true;
+            this.user.authenticated = false;
+            this.user.username = null;
+            this.$session.set("user", this.user);
+            this.message = "Unable to process request. Please try again.";
         }
     }
+};
 </script>
 
 <style scoped>
+
 </style>
