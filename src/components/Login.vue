@@ -81,13 +81,15 @@ export default {
 
         checkCurrentLogin() { },
         loginSuccessful(response) {
-            console.log(response.data.accessToken);
+            // console.log(response.data.accessToken);
             if (response.data.accessToken != "") {
-                this.$session.start();
+                // this.$session.start();
                 this.user.authenticated = true;
                 this.user.username = this.username;
-                this.user.companyId = "6132BDB1-BE3E-49A2-E9B9-08DA6EA9FA91"; //need to find a way to get this value from token
+                this.user.companyId = "368b53a0-6b68-4258-966c-08daa256d1d1"; //need to find a way to get this value from token
+
                 this.$session.set("user", this.user);
+
                 // this.$router.replace(
                 //     this.$route.query.redirect || response.data.accessToken
                 // );
