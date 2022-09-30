@@ -86,7 +86,7 @@ export default {
                 // this.$session.start();
                 this.user.authenticated = true;
                 this.user.username = this.username;
-                this.user.companyId = "368b53a0-6b68-4258-966c-08daa256d1d1"; //need to find a way to get this value from token
+                this.user.companyId = "6d7544a1-76b4-4cbe-f521-08daa290c0ac"; //need to find a way to get this value from token
 
                 this.$session.set("user", this.user);
 

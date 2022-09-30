@@ -100,7 +100,7 @@ export default {
     watch: {},
     methods: {
         getSiteInfo() {
-            HTTP.get("/api/company/368b53a0-6b68-4258-966c-08daa256d1d1")
+            HTTP.get("/api/company/6d7544a1-76b4-4cbe-f521-08daa290c0ac")
                 .then(response => this.populateSiteInfo(response.data))
                 .catch(() => this.getFailed());
         },
