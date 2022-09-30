@@ -3,7 +3,7 @@
         <v-toolbar dark prominent :src="src">
             <v-app-bar-nav-icon class="grey--text hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-toolbar-title class="grey--text">
-                <span>{{siteTitle}}</span>
+                <span>{{ siteTitle }}</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
 
@@ -26,7 +26,9 @@
                         <v-icon class="white--text">{{ link.icon }}</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title class="white--text">{{ link.text }}</v-list-item-title>
+                        <v-list-item-title class="white--text">{{
+                        link.text
+                        }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -37,7 +39,9 @@
                         <v-icon class="white--text">{{ link.icon }}</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title class="white--text">{{ link.text }}</v-list-item-title>
+                        <v-list-item-title class="white--text">{{
+                        link.text
+                        }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -46,77 +50,71 @@
 </template>
 
 <script>
-    import { HTTP } from "../http-common.js";
-    //import LoginRegister from "@/components/LoginRegister";
+import { HTTP } from "../http-common.js";
+//import LoginRegister from "@/components/LoginRegister";
 
-    export default {
-        name: "Navbar",
-        components: {
-            //LoginRegister
-        },
-        data: () => ({
-            drawer: false,
-            siteTitle: "",
-            src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
-            dialog: false,
-            member: null,
-            authenticated: false,
-            errors: [],
-            authenticatedLinks: [
-                { icon: 'contacts', text: 'Home', route: '/' },
-                { icon: 'contacts', text: 'About', route: '/about' },
-                { icon: 'contacts', text: 'Gallery', route: '/gallery' },
-                { icon: 'contacts', text: 'Member Only', route: '/member' },
-                { icon: 'contacts', text: 'Admin', route: '/admin' },
-                { icon: 'contacts', text: 'Contact', route: '/contact' },
-                { icon: 'contacts', text: 'Logout', route: '/logout' }
-
-            ],
-            generalLinks: [
-                { icon: 'contacts', text: 'Home', route: '/' },
-                { icon: 'contacts', text: 'About', route: '/about' },
-                { icon: 'contacts', text: 'Gallery', route: '/gallery' },
-                { icon: 'contacts', text: 'Contact', route: '/contact' },
-                { icon: 'contacts', text: 'Login', route: '/login' }
-            ]
-        }),
-        beforeDestroy() {
-
-        },
-        created() {
-            this.getSiteInfo();
-        },
-        mounted() {
-            if (this.$session.get('user').authenticated) {
-                this.authenticated = true;
-            }
-            else {
-                this.authenticated = false;
-            }
-        },
-        updated() {
-            //alert("updated");
-        },
-        watch: {
-
-        },
-        methods: {
-            getSiteInfo() {
-                HTTP.get('/api/siteinfo/')
-                    .then(response => this.populateSiteInfo(response.data.results.data[0]))
-                    .catch(() => this.getFailed())
-            },
-            populateSiteInfo(data) {
-                //console.log(data);
-                this.siteTitle = data.name;
-            },
-            getFailed() {
-                console.log("get failed");
-            },
+export default {
+    name: "Navbar",
+    components: {
+        //LoginRegister
+    },
+    data: () => ({
+        drawer: false,
+        siteTitle: "",
+        src: "https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg",
+        dialog: false,
+        member: null,
+        authenticated: false,
+        errors: [],
+        authenticatedLinks: [
+            { icon: "contacts", text: "Home", route: "/" },
+            { icon: "contacts", text: "About", route: "/about" },
+            { icon: "contacts", text: "Gallery", route: "/gallery" },
+            { icon: "contacts", text: "Member Only", route: "/member" },
+            { icon: "contacts", text: "Admin", route: "/admin" },
+            { icon: "contacts", text: "Contact", route: "/contact" },
+            { icon: "contacts", text: "Logout", route: "/logout" }
+        ],
+        generalLinks: [
+            { icon: "contacts", text: "Home", route: "/" },
+            { icon: "contacts", text: "About", route: "/about" },
+            { icon: "contacts", text: "Gallery", route: "/gallery" },
+            { icon: "contacts", text: "Contact", route: "/contact" },
+            { icon: "contacts", text: "Login", route: "/login" }
+        ]
+    }),
+    beforeDestroy() { },
+    created() {
+        this.getSiteInfo();
+    },
+    mounted() {
+        if (this.$session.get("user").authenticated) {
+            this.authenticated = true;
+        } else {
+            this.authenticated = false;
         }
-
+    },
+    updated() {
+        //alert("updated");
+    },
+    watch: {},
+    methods: {
+        getSiteInfo() {
+            HTTP.get("/api/company/368b53a0-6b68-4258-966c-08daa256d1d1")
+                .then(response => this.populateSiteInfo(response.data))
+                .catch(() => this.getFailed());
+        },
+        populateSiteInfo(data) {
+            console.log(data);
+            this.siteTitle = data.name;
+        },
+        getFailed() {
+            console.log("get failed");
+        }
     }
+};
 </script>
 
 <style scoped>
+
 </style>

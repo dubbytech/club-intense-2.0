@@ -15,17 +15,17 @@ export default {
     created() {
         this.getLandingPageInfo();
     },
-    mounted() { },
+    mounted() {
+        // this.getLandingPageInfo();
+    },
     methods: {
         getLandingPageInfo() {
-            HTTP.get("/api/landingPage/6132BDB1-BE3E-49A2-E9B9-08DA6EA9FA91")
-                .then(response =>
-                    this.populateLandingPageInfo(response.data.results.data)
-                )
+            HTTP.get("/api/landingPage/368b53a0-6b68-4258-966c-08daa256d1d1")
+                .then(response => this.populateLandingPageInfo(response.data))
                 .catch(() => this.getFailed());
         },
         populateLandingPageInfo(data) {
-            //console.log(data);
+            // console.log(data);
             for (var i = 0; i < data.length; i++) {
                 if (data[i].title == "Home") {
                     this.landingPageInfo = data[i].pageContent;

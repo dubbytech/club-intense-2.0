@@ -60,10 +60,8 @@ export default {
     mounted() { },
     methods: {
         getLandingPageInfo() {
-            HTTP.get("/api/landingPage/")
-                .then(response =>
-                    this.populateLandingPageInfo(response.data.results.data)
-                )
+            HTTP.get("/api/landingPage/368b53a0-6b68-4258-966c-08daa256d1d1")
+                .then(response => this.populateLandingPageInfo(response.data))
                 .catch(() => this.getFailed());
         },
         populateLandingPageInfo(data) {
