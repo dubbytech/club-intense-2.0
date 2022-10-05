@@ -83,7 +83,6 @@ export default {
         loginSuccessful(response) {
             // console.log(response.data.accessToken);
             if (response.data.accessToken != "") {
-                // this.$session.start();
                 this.user.authenticated = true;
                 this.user.username = this.username;
                 this.user.companyId = "6d7544a1-76b4-4cbe-f521-08daa290c0ac"; //need to find a way to get this value from token
