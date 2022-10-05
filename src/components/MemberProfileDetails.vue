@@ -176,7 +176,6 @@ export default {
     },
     methods: {
         getProfile() {
-            alert("hi");
             HTTP.get(
                 "/api/member/6d7544a1-76b4-4cbe-f521-08daa290c0ac/af985671-eb5e-4eb5-802c-8bf17e5f2e97"
             )
